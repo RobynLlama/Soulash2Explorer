@@ -1,0 +1,25 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Project",
+			"type": "shell",
+			"command": "dotnet",
+			"args": [
+				"run",
+				"--project=src/SoulashExplorer/SoulashExplorer.csproj"
+			],
+			"group": {
+				"kind": "none",
+				"isDefault": false
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		}
+	]
+}

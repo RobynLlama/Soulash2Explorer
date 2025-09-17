@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>SoulashExplorer</AssemblyName>
+
+    <Version>1.0.0</Version>
+    <Nullable>enable</Nullable>
+    <TargetFramework>net9.0</TargetFramework>
+
+    <Authors>Robyn</Authors>
+    <Description>A console application</Description>
+    <LangVersion>latest</LangVersion>
+
+    <Product>$(AssemblyName)</Product>
+    <RootNamespace>$(Product)</RootNamespace>
+    <TargetName>$(Product)</TargetName>
+    <AssemblyName>$(Product)</AssemblyName>
+  </PropertyGroup>
+
+</Project>
