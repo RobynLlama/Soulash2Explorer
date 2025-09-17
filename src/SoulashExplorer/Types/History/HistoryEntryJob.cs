@@ -13,7 +13,7 @@ public class HistoryEntryJob(int eventID, int year, int day, EventType what, int
   /// </summary>
   public int SourceBuildingID = buildingID;
 
-  protected override string DescribeEvent(SaveCollection save)
+  public override string DescribeEvent(SaveCollection save)
   {
     string where;
     string fam;

@@ -7,7 +7,7 @@ public class HistoryEntryFamilyLeader(int eventID, int year, int day, EventType 
   /// </summary>
   public int FamilyID = familyID;
 
-  protected override string DescribeEvent(SaveCollection save)
+  public override string DescribeEvent(SaveCollection save)
   {
     string fam;
 

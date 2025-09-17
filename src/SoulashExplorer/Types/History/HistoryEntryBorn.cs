@@ -6,7 +6,7 @@ public class HistoryEntryBorn(int eventID, int year, int day, EventType what, in
   public int FamilyID = familyID;
   public int LocationID = locID;
 
-  protected override string DescribeEvent(SaveCollection save)
+  public override string DescribeEvent(SaveCollection save)
   {
     string fam;
     string loc;

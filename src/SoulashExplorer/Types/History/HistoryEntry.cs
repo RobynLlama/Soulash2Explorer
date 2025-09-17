@@ -124,6 +124,6 @@ public class HistoryEntry(int eventID, int year, int day, EventType what, int wh
       """;
   }
 
-  protected virtual string DescribeEvent(SaveCollection save) =>
+  public virtual string DescribeEvent(SaveCollection save) =>
     $"({What})";
 }
