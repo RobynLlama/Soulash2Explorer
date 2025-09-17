@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using SoulashExplorer.Types;
 
 namespace SoulashExplorer;
@@ -43,10 +44,77 @@ internal class Program
     if (!saveData.LoadHistorySave())
       return;
 
+    var outdir = new DirectoryInfo("./output");
+    if (!outdir.Exists)
+      outdir.Create();
+
+    outdir.CreateSubdirectory("./entities");
+
     if (saveData.WorldHistory is HistorySave history)
-      foreach (var item in history.HistoricalEvents.Values)
+    {
+
+      StringBuilder entLinks = new();
+
+      foreach (var entity in saveData.AllEntities.Values)
       {
-        Console.WriteLine(item.ToString(saveData));
+        if (!entity.IsHumanoid)
+          continue;
+
+        string entFileName = $"./entities/{entity.EntityID}.html";
+        var link = $"""
+        <li><a href="{entFileName}">{entity.GetFullName}</a></li>
+
+        """;
+        entLinks.Append(link);
+
+        StringBuilder histData = new();
+
+        foreach (var thing in history.HistoricalEvents.Values)
+        {
+          if (thing.Who == entity.EntityID)
+          {
+            string histOutput = $"""
+            <p>
+              <h3>Year {thing.Year}, Day {thing.Day}</h3>
+              <p>
+                {entity.Name.GivenName} {thing.DescribeEvent(saveData)}
+              </p>
+            </p>
+            """;
+
+            histData.AppendLine(histOutput);
+          }
+        }
+
+        File.WriteAllText(Path.Combine(outdir.FullName, entFileName), $"""
+        <html>
+          <head>
+            <title>{entity.GetFullName} History</title>
+          <head>
+          <body>
+            <h1> {entity.GetFullName} </h1>
+            <h2> Historical Events </h2>
+            {histData}
+          </body>
+        </html>
+        """);
       }
+
+      string html = $"""
+      <html>
+        <head>
+          <title>Save Info</title>
+        </head>
+        <body>
+          <h2>Historic Entity List</h2>
+          <ul>
+            {entLinks}
+          </ul>
+        </body>
+      </html>
+      """;
+
+      File.WriteAllText(Path.Combine(outdir.FullName, "Index.html"), html);
+    }
   }
 }
