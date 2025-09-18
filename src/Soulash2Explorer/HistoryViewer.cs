@@ -34,7 +34,17 @@ public partial class HistoryViewer : PanelContainer
   [Export]
   public PackedScene PortraitLayer;
 
+  [Export]
+  public Label WorldHistoryLabel;
+
+  [Export]
+  public TextEdit WorldHistoryBox;
+
+  [Export]
+  public MarginContainer HistoryTab;
+
   protected SaveCollection save;
+  protected bool HistoryLoaded = false;
 
   public override void _Ready()
   {
@@ -76,6 +86,34 @@ public partial class HistoryViewer : PanelContainer
     }
 
     Menu.IdPressed += MenuPressed;
+    HistoryTab.VisibilityChanged += ReloadWorldHistory;
+
+    WorldHistoryLabel.Text = $"""
+    {Paths.SelectedSave}
+      {save.WorldHistory.HistoricalEvents.Values.Count} Total Events
+    """;
+  }
+
+  private void ReloadWorldHistory()
+  {
+    if (HistoryLoaded)
+      return;
+
+    StringBuilder hs = new($"""
+    World History for {Paths.SelectedSave}
+
+    
+    """);
+
+    foreach (var item in save.WorldHistory.HistoricalEvents.Values)
+    {
+      hs.AppendLine(item.ToString(save));
+      hs.AppendLine();
+    }
+
+    WorldHistoryBox.Text = hs.ToString();
+
+    HistoryLoaded = true;
   }
 
   private void MenuPressed(long id)
