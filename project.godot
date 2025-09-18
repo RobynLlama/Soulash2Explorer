@@ -13,7 +13,7 @@ config_version=5
 config/name="Soulash2Explorer"
 run/main_scene="uid://2xt0imermq0v"
 config/features=PackedStringArray("4.4", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://oxuotkq1qqja"
 
 [dotnet]
 
