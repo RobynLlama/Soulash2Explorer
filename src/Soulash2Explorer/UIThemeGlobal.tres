@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://b3pdmnovl0ceg"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://b3pdmnovl0ceg"]
+
+[ext_resource type="FontFile" uid="uid://ck8vb8k0u5j7y" path="res://Fonts/Lato-Regular.ttf" id="1_ntu0i"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xalid"]
 
@@ -16,4 +18,6 @@ Button/styles/focus = SubResource("StyleBoxEmpty_xalid")
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_ntu0i")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_xalid")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_6n6x1")
+TextEdit/font_sizes/font_size = 20
+TextEdit/fonts/font = ExtResource("1_ntu0i")
 Tree/styles/focus = SubResource("StyleBoxEmpty_tfsqs")
