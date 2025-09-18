@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://b56yh3idnaw18"]
+[gd_scene load_steps=8 format=3 uid="uid://b56yh3idnaw18"]
 
-[ext_resource type="Theme" uid="uid://b3pdmnovl0ceg" path="res://src/Soulash2Explorer/UIThemeGlobal.tres" id="1_d3yqh"]
+[ext_resource type="Theme" path="res://src/Soulash2Explorer/UIThemeGlobal.tres" id="1_d3yqh"]
 [ext_resource type="Script" uid="uid://d2lghe26m6ojt" path="res://src/Soulash2Explorer/HistoryViewer.cs" id="1_feepi"]
 [ext_resource type="PackedScene" uid="uid://bxwatu4biqtjp" path="res://src/Soulash2Explorer/Scenes/PortraitLayerSprite.tscn" id="2_hes2d"]
 [ext_resource type="Script" uid="uid://d5mu4ctn2e84" path="res://src/Soulash2Explorer/EntityList.cs" id="2_xom4v"]
 [ext_resource type="PackedScene" uid="uid://db3innjiphdce" path="res://src/Soulash2Explorer/Scenes/EntityListItem.tscn" id="3_hes2d"]
+[ext_resource type="Script" uid="uid://8sne8j5plljh" path="res://src/Soulash2Explorer/EntityListScrollWidth.cs" id="4_dapy2"]
+[ext_resource type="Script" uid="uid://dudbweuhst8o" path="res://src/Soulash2Explorer/TextEditScrollWidth.cs" id="6_8lh2e"]
 
 [node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("EntList", "HistoryView", "Menu", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab")]
 anchors_preset = 15
@@ -88,6 +90,10 @@ size_flags_vertical = 3
 [node name="EntityList" type="ScrollContainer" parent="Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+script = ExtResource("4_dapy2")
+MinScrollSize = 10
 
 [node name="EntList" type="VBoxContainer" parent="Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityList"]
 layout_mode = 2
@@ -99,10 +105,14 @@ EntityChild = ExtResource("3_hes2d")
 [node name="EntityHistory" type="TextEdit" parent="Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "Click an entity to view the complete history here"
+placeholder_text = "Click an entity to view its complete history here"
 editable = false
 emoji_menu_enabled = false
 empty_selection_clipboard_enabled = false
+wrap_mode = 1
+indent_wrapped_lines = true
+script = ExtResource("6_8lh2e")
+MinScrollSize = 10
 
 [node name="World History" type="MarginContainer" parent="Margins/Layout/TabContainer"]
 visible = false
@@ -129,3 +139,5 @@ editable = false
 emoji_menu_enabled = false
 virtual_keyboard_enabled = false
 middle_mouse_paste_enabled = false
+script = ExtResource("6_8lh2e")
+MinScrollSize = 10
