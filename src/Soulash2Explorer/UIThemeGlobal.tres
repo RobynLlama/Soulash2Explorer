@@ -1,0 +1,19 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://b3pdmnovl0ceg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xalid"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ntu0i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xalid"]
+bg_color = Color(0.491224, 0.410809, 0.341822, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6n6x1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tfsqs"]
+
+[resource]
+Button/styles/focus = SubResource("StyleBoxEmpty_xalid")
+LineEdit/styles/focus = SubResource("StyleBoxEmpty_ntu0i")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_xalid")
+TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_6n6x1")
+Tree/styles/focus = SubResource("StyleBoxEmpty_tfsqs")
