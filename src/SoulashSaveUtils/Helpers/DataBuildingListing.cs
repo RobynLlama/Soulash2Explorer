@@ -10,7 +10,7 @@ public static class DataBuildingListing
 {
   public static bool Create(string source, Dictionary<int, DataBuilding> table)
   {
-    if (Paths.GameBasePath == string.Empty)
+    if (Paths.ConfiguredPaths.GameBasePath == string.Empty)
     {
       Console.WriteLine("Unable to read GameBasePath");
       return false;

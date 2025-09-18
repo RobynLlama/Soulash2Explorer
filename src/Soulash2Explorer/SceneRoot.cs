@@ -12,14 +12,14 @@ public partial class SceneRoot : Node2D
   public override void _Ready()
   {
     //setup paths
-    Paths.GameBasePath = "/home/qtmims/.steam/debian-installation/steamapps/common/Soulash 2";
-    Paths.GameSavesPath = "/home/qtmims/.steam/debian-installation/steamapps/common/Soulash 2/AppData/saves/Lil World";
+    Paths.ConfiguredPaths.GameBasePath = "/home/qtmims/.steam/debian-installation/steamapps/common/Soulash 2";
+    Paths.ConfiguredPaths.GameSavesPath = "/home/qtmims/.steam/debian-installation/steamapps/common/Soulash 2/AppData/saves/Lil World";
 
     //preload the portrait atlas
     PortraitStorage.LoadTexture();
 
     DataBase.LoadedData.LoadAllDataFromSource("core_2");
-    SaveCollection saveData = new(new DirectoryInfo(Paths.GameSavesPath));
+    SaveCollection saveData = new(new DirectoryInfo(Paths.ConfiguredPaths.GameSavesPath));
     saveData.LoadActorsSave();
 
     SaveEntity ent = saveData.AllEntities.Values.Where(x => x.Glyphs.Length > 3).First();

@@ -37,7 +37,7 @@ public class DataCollection
 
   public bool LoadPortraitsFromSource(string source)
   {
-    if (Paths.GameBasePath == string.Empty)
+    if (Paths.ConfiguredPaths.GameBasePath == string.Empty)
     {
       Console.WriteLine("Unable to read GameBasePath");
       return false;
