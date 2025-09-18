@@ -1,5 +1,9 @@
 # Soulash 2 Explorer
 
+![Static Badge](https://img.shields.io/badge/Language-C%23-blue?style=flat-square&logo=sharp)
+
+![Static Badge](https://img.shields.io/badge/License-LGPLv3-orange?style=flat-square&logo=gnuemacs)
+
 S2E is a work in progress full save game exploration tool.
 
 ## Current Features
