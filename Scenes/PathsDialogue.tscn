@@ -1,0 +1,81 @@
+[gd_scene load_steps=2 format=3 uid="uid://2xt0imermq0v"]
+
+[ext_resource type="Script" uid="uid://dmfkik58vt4cl" path="res://src/Soulash2Explorer/PathAndSaveSelector.cs" id="1_cjwbo"]
+
+[node name="PathsAndSaveSelector" type="PanelContainer" node_paths=PackedStringArray("GamePathDir", "SavePathDir", "SaveDisplay", "SaveButton", "LoadButton")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_cjwbo")
+GamePathDir = NodePath("OuterMargins/SettingsBox/GameDataDirBox/GameDir")
+SavePathDir = NodePath("OuterMargins/SettingsBox/SaveDirBox/SaveDir")
+SaveDisplay = NodePath("OuterMargins/SettingsBox/SavesList")
+SaveButton = NodePath("OuterMargins/SettingsBox/ButtonUpdate")
+LoadButton = NodePath("OuterMargins/SettingsBox/ButtonLoadSave")
+
+[node name="OuterMargins" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="SettingsBox" type="VBoxContainer" parent="OuterMargins"]
+layout_mode = 2
+
+[node name="LblTop" type="Label" parent="OuterMargins/SettingsBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Path Settings"
+
+[node name="GameDataDirBox" type="HBoxContainer" parent="OuterMargins/SettingsBox"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="LblGameData" type="Label" parent="OuterMargins/SettingsBox/GameDataDirBox"]
+layout_mode = 2
+text = "Game Data Dir:"
+
+[node name="GameDir" type="LineEdit" parent="OuterMargins/SettingsBox/GameDataDirBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+placeholder_text = "/path/to/soulash2/here"
+max_length = 512
+
+[node name="SaveDirBox" type="HBoxContainer" parent="OuterMargins/SettingsBox"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="LblSaveDir" type="Label" parent="OuterMargins/SettingsBox/SaveDirBox"]
+clip_contents = true
+custom_minimum_size = Vector2(118, 0)
+layout_mode = 2
+text = "Save Data Dir:"
+
+[node name="SaveDir" type="LineEdit" parent="OuterMargins/SettingsBox/SaveDirBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+placeholder_text = "/path/to/saves/here"
+max_length = 512
+
+[node name="ButtonUpdate" type="Button" parent="OuterMargins/SettingsBox"]
+layout_mode = 2
+text = "Save Settings"
+
+[node name="LblSaves" type="Label" parent="OuterMargins/SettingsBox"]
+layout_mode = 2
+text = "Saves:"
+
+[node name="SavesList" type="ItemList" parent="OuterMargins/SettingsBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonLoadSave" type="Button" parent="OuterMargins/SettingsBox"]
+layout_mode = 2
+text = "Load Selected Save"
