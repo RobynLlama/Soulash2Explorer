@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://2xt0imermq0v"]
+[gd_scene load_steps=3 format=3 uid="uid://2xt0imermq0v"]
 
-[ext_resource type="Script" uid="uid://dmfkik58vt4cl" path="res://src/Soulash2Explorer/PathAndSaveSelector.cs" id="1_cjwbo"]
+[ext_resource type="Theme" uid="uid://b3pdmnovl0ceg" path="res://src/Soulash2Explorer/UIThemeGlobal.tres" id="1_ir07s"]
+[ext_resource type="Script" uid="uid://dmfkik58vt4cl" path="res://src/Soulash2Explorer/PathAndSaveSelector.cs" id="2_270hn"]
 
 [node name="PathsAndSaveSelector" type="PanelContainer" node_paths=PackedStringArray("GamePathDir", "SavePathDir", "SaveDisplay", "SaveButton", "LoadButton")]
 anchors_preset = 15
@@ -10,7 +11,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_cjwbo")
+theme = ExtResource("1_ir07s")
+script = ExtResource("2_270hn")
 ViewerScenePath = "uid://b56yh3idnaw18"
 GamePathDir = NodePath("OuterMargins/SettingsBox/GameDataDirBox/GameDir")
 SavePathDir = NodePath("OuterMargins/SettingsBox/SaveDirBox/SaveDir")
