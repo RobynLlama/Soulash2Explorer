@@ -226,4 +226,4 @@ artifacts/**/*.zip
 *.txt
 artifacts/**
 Config.Build.user.props
-output/**
+.godot/**
