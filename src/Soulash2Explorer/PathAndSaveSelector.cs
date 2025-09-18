@@ -4,6 +4,9 @@ using System.Linq;
 using Godot;
 using SoulashSaveUtils.Helpers;
 
+namespace Soulash2Explorer;
+
+
 public partial class PathAndSaveSelector : PanelContainer
 {
   [Export(PropertyHint.File, "*.tscn")]

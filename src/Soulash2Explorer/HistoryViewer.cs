@@ -3,9 +3,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Godot;
-using Soulash2Explorer;
 using SoulashSaveUtils.Helpers;
 using SoulashSaveUtils.Types;
+
+namespace Soulash2Explorer;
 
 public partial class HistoryViewer : PanelContainer
 {

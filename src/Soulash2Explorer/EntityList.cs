@@ -2,6 +2,8 @@ using System;
 using Godot;
 using Soulash2Explorer;
 
+namespace Soulash2Explorer;
+
 [GlobalClass]
 public partial class EntityList : VBoxContainer
 {
