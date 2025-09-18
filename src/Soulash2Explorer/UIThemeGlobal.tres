@@ -1,8 +1,10 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://b3pdmnovl0ceg"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://b3pdmnovl0ceg"]
 
 [ext_resource type="FontFile" uid="uid://ck8vb8k0u5j7y" path="res://Fonts/Lato-Regular.ttf" id="1_ntu0i"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xalid"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yegw4"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ntu0i"]
 
@@ -15,6 +17,7 @@ bg_color = Color(0.491224, 0.410809, 0.341822, 1)
 
 [resource]
 Button/styles/focus = SubResource("StyleBoxEmpty_xalid")
+ItemList/styles/focus = SubResource("StyleBoxEmpty_yegw4")
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_ntu0i")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_xalid")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_6n6x1")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://b56yh3idnaw18"]
 
-[ext_resource type="Theme" path="res://src/Soulash2Explorer/UIThemeGlobal.tres" id="1_d3yqh"]
+[ext_resource type="Theme" uid="uid://b3pdmnovl0ceg" path="res://src/Soulash2Explorer/UIThemeGlobal.tres" id="1_d3yqh"]
 [ext_resource type="Script" uid="uid://d2lghe26m6ojt" path="res://src/Soulash2Explorer/HistoryViewer.cs" id="1_feepi"]
 [ext_resource type="PackedScene" uid="uid://bxwatu4biqtjp" path="res://src/Soulash2Explorer/Scenes/PortraitLayerSprite.tscn" id="2_hes2d"]
 [ext_resource type="Script" uid="uid://d5mu4ctn2e84" path="res://src/Soulash2Explorer/EntityList.cs" id="2_xom4v"]
