@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://db3innjiphdce"]
+[gd_scene load_steps=5 format=3 uid="uid://db3innjiphdce"]
 
 [ext_resource type="Script" uid="uid://dm8j5hncewr55" path="res://src/Soulash2Explorer/EntityListItem.cs" id="1_r7awf"]
 
@@ -7,6 +7,9 @@ bg_color = Color(0.408329, 0.408329, 0.408329, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e4xsf"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s85bw"]
+bg_color = Color(0.270222, 0.270222, 0.270222, 1)
 
 [node name="EntityListItem" type="PanelContainer" node_paths=PackedStringArray("PortraitContainer", "Desc", "ViewButton")]
 anchors_preset = 10
@@ -19,7 +22,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_avasf")
 script = ExtResource("1_r7awf")
 PortraitContainer = NodePath("VBoxContainer/HBoxContainer/PortraitPanel")
 Desc = NodePath("VBoxContainer/HBoxContainer/EntityName")
-ViewButton = NodePath("VBoxContainer/HBoxContainer/ButtonView")
+ViewButton = NodePath("VBoxContainer/HBoxContainer/ButtonMargins/ButtonView")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -37,8 +40,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_e4xsf")
 layout_mode = 2
 text = "ENT NAME (ID)"
 
-[node name="ButtonView" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="ButtonMargins" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "View History >"
-flat = true
+theme_override_constants/margin_right = 4
+
+[node name="ButtonView" type="Button" parent="VBoxContainer/HBoxContainer/ButtonMargins"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_s85bw")
+text = " View History → "
