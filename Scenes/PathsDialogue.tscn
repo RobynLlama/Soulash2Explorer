@@ -11,6 +11,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_cjwbo")
+ViewerScenePath = "uid://b56yh3idnaw18"
 GamePathDir = NodePath("OuterMargins/SettingsBox/GameDataDirBox/GameDir")
 SavePathDir = NodePath("OuterMargins/SettingsBox/SaveDirBox/SaveDir")
 SaveDisplay = NodePath("OuterMargins/SettingsBox/SavesList")

@@ -4,5 +4,5 @@ namespace SoulashSaveUtils.Helpers;
 
 public static class DataBase
 {
-  public static readonly DataCollection LoadedData = new();
+  public static DataCollection LoadedData = new();
 }

@@ -6,6 +6,8 @@ using SoulashSaveUtils.Helpers;
 
 public partial class PathAndSaveSelector : PanelContainer
 {
+  [Export(PropertyHint.File, "*.tscn")]
+  public string ViewerScenePath = "";
 
   [Export]
   [ExportCategory("Inputs")]
@@ -53,6 +55,7 @@ public partial class PathAndSaveSelector : PanelContainer
     }
 
     Paths.SelectedSave = item;
+    GetTree().ChangeSceneToFile(ViewerScenePath);
   }
 
   private void OnPressedSave()
