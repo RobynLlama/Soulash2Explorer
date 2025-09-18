@@ -62,6 +62,20 @@ public static class ActorListing
         continue;
       }
 
+      if (next.StartsWith("Glyph;"))
+      {
+        var data = next[6..].Split('|');
+
+        //clip the count because I don't need it
+        data = data[1..];
+
+        foreach (var item in data)
+        {
+          var gInfo = item.Split('*');
+          ent.WithGlyph(new(gInfo[0]));
+        }
+      }
+
       if (!set && next.Contains(';'))
       {
         //parse ID

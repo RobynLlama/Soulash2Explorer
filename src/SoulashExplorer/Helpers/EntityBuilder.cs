@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using SoulashExplorer.Types;
 
 namespace SoulashExplorer.Helpers;
@@ -8,6 +9,7 @@ public class EntityBuilder
   private int? ID;
   private SaveEntityName? Name;
   private bool IsHumanoid = false;
+  private List<Glyph> Glyphs = [];
   public EntityBuilder WithID(int entID)
   {
     ID = entID;
@@ -32,11 +34,18 @@ public class EntityBuilder
     return this;
   }
 
+  public EntityBuilder WithGlyph(Glyph glyph)
+  {
+    Glyphs.Add(glyph);
+    return this;
+  }
+
   public EntityBuilder Reset()
   {
     ID = null;
     Name = null;
     IsHumanoid = false;
+    Glyphs.Clear();
     return this;
   }
 
@@ -48,6 +57,6 @@ public class EntityBuilder
       throw new ArgumentNullException(nameof(ID));
     ArgumentNullException.ThrowIfNull(Name);
 
-    return new(goodID, Name, IsHumanoid);
+    return new(goodID, Name, IsHumanoid, [.. Glyphs]);
   }
 }
