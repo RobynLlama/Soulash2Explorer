@@ -22,23 +22,23 @@ public partial class PathAndSaveSelector : PanelContainer
   public string ViewerScenePath = "";
 
   [Export]
-  [ExportCategory("Inputs")]
+  [ExportGroup("Inputs")]
   public LineEdit GamePathDir;
 
   [Export]
-  [ExportCategory("Inputs")]
+  [ExportGroup("Inputs")]
   public LineEdit SavePathDir;
 
   [Export]
-  [ExportCategory("Inputs")]
+  [ExportGroup("Inputs")]
   public ItemList SaveDisplay;
 
   [Export]
-  [ExportCategory("Buttons")]
+  [ExportGroup("Buttons")]
   public Button SaveButton;
 
   [Export]
-  [ExportCategory("Buttons")]
+  [ExportGroup("Buttons")]
   public Button LoadButton;
 
   public override void _Ready()
