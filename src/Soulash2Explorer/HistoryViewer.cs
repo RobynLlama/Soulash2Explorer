@@ -70,6 +70,9 @@ public partial class HistoryViewer : PanelContainer
   public Label NoticeLabel;
 
   [Export]
+  public Tree ModsList;
+
+  [Export]
   public LineEdit InfoVersionField;
 
   protected SaveCollection save;
@@ -127,6 +130,17 @@ public partial class HistoryViewer : PanelContainer
     Game Version: {save.GeneralSaveData.GameVersion}
 
     """;
+
+    //add root item
+    var root = ModsList.CreateItem();
+    root.SetText(0, "Required Mods");
+
+    foreach (var mod in save.GeneralSaveData.RequiredMods)
+    {
+      var item = ModsList.CreateItem(root);
+      item.SetText(0, mod);
+    }
+
 
     NoticeLabel.Text = $"""
     Soulash 2 Explorer {version} written by RobynLlama

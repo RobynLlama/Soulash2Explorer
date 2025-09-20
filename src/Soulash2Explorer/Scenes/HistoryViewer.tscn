@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://oxuotkq1qqja" path="res://icon.png" id="4_gkb4t"]
 [ext_resource type="Script" uid="uid://dudbweuhst8o" path="res://src/Soulash2Explorer/TextEditScrollWidth.cs" id="6_8lh2e"]
 
-[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "Listing", "EntityScroller", "PageBackButton", "PageForwardButton", "PageInfoLabel", "HistoryView", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "InfoVersionField")]
+[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "Listing", "EntityScroller", "PageBackButton", "PageForwardButton", "PageInfoLabel", "HistoryView", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "ModsList", "InfoVersionField")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -28,9 +28,10 @@ HistoryView = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityCo
 WorldHistoryLabel = NodePath("Margins/Layout/TabContainer/World History/HistoryBox/LblWorldStats")
 WorldHistoryBox = NodePath("Margins/Layout/TabContainer/World History/HistoryBox/TextWorldHistory")
 HistoryTab = NodePath("Margins/Layout/TabContainer/World History")
-WorldNameLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/LblWorldName")
-WorldMetaLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/LblMeta")
+WorldNameLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/MetaLayout/LblWorldName")
+WorldMetaLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/MetaLayout/LblMeta")
 NoticeLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/LogoBox/LblCopyrightNotice")
+ModsList = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/ModsLayout/ModsBox/ModsList")
 InfoVersionField = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/TxtInfoVer")
 
 [node name="Margins" type="MarginContainer" parent="."]
@@ -72,13 +73,21 @@ metadata/_tab_index = 0
 [node name="SaveMeta" type="VBoxContainer" parent="Margins/Layout/TabContainer/Save Info"]
 layout_mode = 2
 
-[node name="LblWorldName" type="Label" parent="Margins/Layout/TabContainer/Save Info/SaveMeta"]
+[node name="SplitDisplay" type="HBoxContainer" parent="Margins/Layout/TabContainer/Save Info/SaveMeta"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MetaLayout" type="VBoxContainer" parent="Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LblWorldName" type="Label" parent="Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/MetaLayout"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "WORLD NAME"
 horizontal_alignment = 1
 
-[node name="LblMeta" type="Label" parent="Margins/Layout/TabContainer/Save Info/SaveMeta"]
+[node name="LblMeta" type="Label" parent="Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/MetaLayout"]
 layout_mode = 2
 text = "World Year World Day
 
@@ -87,9 +96,38 @@ Total History Count"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ModsLayout" type="VBoxContainer" parent="Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LblMods" type="Label" parent="Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/ModsLayout"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Required Mods"
+horizontal_alignment = 1
+
+[node name="ModsBox" type="HBoxContainer" parent="Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/ModsLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="spacerLeft" type="Control" parent="Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/ModsLayout/ModsBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ModsList" type="Tree" parent="Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/ModsLayout/ModsBox"]
+custom_minimum_size = Vector2(320, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="spacerRight" type="Control" parent="Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/ModsLayout/ModsBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="LogoBox" type="HBoxContainer" parent="Margins/Layout/TabContainer/Save Info/SaveMeta"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 8
 alignment = 1
 
 [node name="LogoRect" type="TextureRect" parent="Margins/Layout/TabContainer/Save Info/SaveMeta/LogoBox"]
