@@ -8,6 +8,7 @@
 */
 
 using System;
+using System.Numerics;
 using SoulashSaveUtils.Helpers;
 
 namespace SoulashSaveUtils.Types;
@@ -15,13 +16,16 @@ namespace SoulashSaveUtils.Types;
 public class Glyph
 {
   public Frame Frame;
+  public Vector3 Color;
 
-  public Glyph(string itemName)
+  public Glyph(string itemName, Vector3 color)
   {
     //Todo: Store color info
     if (DataBase.LoadedData.PortraitFrames.TryGetValue(itemName, out var port))
       Frame = port.Frame;
     else
       throw new InvalidOperationException($"Missing portrait {itemName}");
+
+    Color = color;
   }
 }
