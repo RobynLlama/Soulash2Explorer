@@ -20,11 +20,7 @@ namespace Soulash2Explorer;
 
 public partial class HistoryViewer : PanelContainer
 {
-  [Export]
-  public EntityList EntList;
-
-  [Export]
-  public TextEdit HistoryView;
+  [ExportCategory("Misc")]
 
   [Export]
   public PopupMenu Menu;
@@ -32,10 +28,20 @@ public partial class HistoryViewer : PanelContainer
   [Export(PropertyHint.File, "*.tscn")]
   public string SaveScenePath = string.Empty;
 
+  [ExportCategory("Tab Views")]
+
+  [Export]
+  [ExportGroup("Entity View")]
+  public EntityList EntList;
+
+  [Export]
+  public TextEdit HistoryView;
+
   [Export]
   public PackedScene PortraitLayer;
 
   [Export]
+  [ExportGroup("Combined History View")]
   public Label WorldHistoryLabel;
 
   [Export]
@@ -43,6 +49,10 @@ public partial class HistoryViewer : PanelContainer
 
   [Export]
   public MarginContainer HistoryTab;
+
+  [Export]
+  [ExportGroup("Meta View")]
+  public Label WorldNameLabel;
 
   [Export]
   public Label WorldMetaLabel;
