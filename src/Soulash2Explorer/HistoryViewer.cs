@@ -116,13 +116,16 @@ public partial class HistoryViewer : PanelContainer
       {save.WorldHistory.HistoricalEvents.Values.Count} Total Events
     """;
 
-    WorldNameLabel.Text = saveName;
+    WorldNameLabel.Text = save.GeneralSaveData.WorldName;
 
     WorldMetaLabel.Text = $"""
-    Year {save.CycleYear}, Day {save.CycleDay}
+    Year {save.GeneralSaveData.Year}, Day {save.GeneralSaveData.Day}
 
     Total Entities: {save.AllEntities.Keys.Count}
-    Total Events  : {save.WorldHistory.HistoricalEvents.Keys.Count}
+    Total Events: {save.WorldHistory.HistoricalEvents.Keys.Count}
+    World Seed: {save.GeneralSaveData.WorldSeed}
+    Game Version: {save.GeneralSaveData.GameVersion}
+
     """;
 
     NoticeLabel.Text = $"""

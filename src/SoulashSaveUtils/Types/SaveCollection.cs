@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
+using Godot;
 using SoulashSaveUtils.Helpers;
 
 namespace SoulashSaveUtils.Types;
@@ -19,24 +21,15 @@ public class SaveCollection
 {
   public readonly DirectoryInfo SaveDir;
 
-  /// <summary>
-  /// Game year as defined in Cycle.sav
-  /// </summary>
-  public int CycleYear;
-
-  /// <summary>
-  /// Game day as defined in Cycle.sav
-  /// </summary>
-  public int CycleDay;
-
   public readonly Dictionary<int, SaveEntity> AllEntities = [];
   public SaveEntity[] AllEntitiesList = [];
   public readonly Dictionary<int, SaveFaction> AllFactions = [];
   public readonly Dictionary<int, SaveBuilding> AllBuildings = [];
-  public HistorySave? WorldHistory = null;
+  public HistorySave WorldHistory = new();
+  public GeneralSave GeneralSaveData = new();
 
   private const string ActorsSaveFile = "actors.sav";
-  private const string CycleSaveFile = "cycle.sav";
+  private const string GeneralSaveFile = "general.json";
   private const string HistorySaveFile = "history_events.sav";
   private const string FactionsSaveFile = "factions.sav";
   private const string BuildingsSaveFile = "buildings.sav";
@@ -77,7 +70,7 @@ public class SaveCollection
 
   public bool LoadCompleteSave()
   {
-    if (!LoadCycleSave())
+    if (!LoadGeneralSave())
       return false;
 
     if (!LoadActorsSave())
@@ -92,28 +85,29 @@ public class SaveCollection
     return true;
   }
 
-  public bool LoadCycleSave()
+  public bool LoadGeneralSave()
   {
-    var cycleFile = new FileInfo(Path.Combine(SaveDir.FullName, CycleSaveFile));
+    var generalFile = new FileInfo(Path.Combine(SaveDir.FullName, GeneralSaveFile));
 
-    if (!cycleFile.Exists)
+    if (!generalFile.Exists)
+    {
+      GD.PushError("General Save doesn't real");
       return false;
+    }
 
-    using StreamReader cycleText = new StreamReader(cycleFile.OpenRead());
-    string[] cycleItems = cycleText.ReadToEnd().Split('|');
-    //646.60004|8|0|0|0|35|50|35|50
 
-    if (cycleItems.Length < 7)
+    using StreamReader generalText = new(generalFile.OpenRead());
+    var data = generalText.ReadToEnd();
+
+    if (JsonSerializer.Deserialize<GeneralSave>(data) is not GeneralSave gs)
+    {
+      GD.PushError("General Save did not deserialize");
       return false;
+    }
 
-    if (!int.TryParse(cycleItems[5], out var years))
-      return false;
 
-    if (!int.TryParse(cycleItems[6], out var days))
-      return false;
+    GeneralSaveData = gs;
 
-    CycleYear = years;
-    CycleDay = days;
     return true;
   }
 
