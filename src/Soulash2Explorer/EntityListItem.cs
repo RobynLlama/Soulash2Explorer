@@ -9,6 +9,7 @@
 
 using System;
 using Godot;
+using SoulashSaveUtils.Types;
 
 namespace Soulash2Explorer;
 
@@ -23,12 +24,47 @@ public partial class EntityListItem : PanelContainer
   [Export]
   public Button ViewButton;
 
+  [Export]
+  public PackedScene PortraitLayer;
+
   public event Action<int> EntityHistoryRequested;
-  public int EntityID;
+  protected int EntityID;
 
   public override void _Ready()
   {
+    Visible = false;
     ViewButton.Pressed += OnPressedView;
+  }
+
+  public void Clear()
+  {
+    foreach (var layer in PortraitContainer.GetChildren())
+      layer.QueueFree();
+
+    Desc.Text = string.Empty;
+    EntityID = -1;
+
+    Visible = false;
+  }
+
+  public void ContainEntity(SaveEntity ent)
+  {
+    Clear();
+
+    foreach (var glyph in ent.Glyphs)
+    {
+      var layer = PortraitLayer.Instantiate<Sprite2D>();
+
+      layer.Texture = PortraitStorage.Texture;
+      layer.RegionRect = new(glyph.Frame.XOffset, glyph.Frame.YOffset, glyph.Frame.Width, glyph.Frame.Height);
+
+      PortraitContainer.AddChild(layer);
+    }
+
+    Desc.Text = ent.GetFullName;
+    EntityID = ent.EntityID;
+
+    Visible = true;
   }
 
   private void OnPressedView() =>

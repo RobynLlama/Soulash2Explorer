@@ -9,31 +9,54 @@
 
 using System;
 using Godot;
-using Soulash2Explorer;
+using SoulashSaveUtils.Types;
 
 namespace Soulash2Explorer;
 
 [GlobalClass]
 public partial class EntityList : VBoxContainer
 {
+
   [Export]
-  protected PackedScene EntityChild;
+  protected PackedScene ListItemProto;
 
-  public EntityListItem AddListItem(string desc, int id)
+  protected int ItemsPerPage = 20;
+  private EntityListItem[] ListItems;
+
+  public override void _Ready()
   {
-    var child = EntityChild.Instantiate<EntityListItem>();
-
-    child.Desc.Text = desc;
-    child.EntityID = id;
-
-    AddChild(child);
-
-    return child;
+    ListItems = new EntityListItem[ItemsPerPage];
+    //Populate the list pool
+    for (int i = 0; i < ItemsPerPage; i++)
+    {
+      var ent = ListItemProto.Instantiate<EntityListItem>();
+      ListItems[i] = ent;
+      AddChild(ent);
+    }
   }
 
   public void ClearList()
   {
-    foreach (var child in GetChildren())
-      child.QueueFree();
+    foreach (var item in ListItems)
+      item.Clear();
+  }
+
+  public void UpdateListFromPosition(SaveCollection save, int pos)
+  {
+    if (pos < 0 || pos > save.AllEntitiesList.Length)
+    {
+      GD.PushWarning($"Ignoring a bad pos index while paging through entities: {pos}");
+      return;
+    }
+
+    var remaining = save.AllEntitiesList.Length - pos;
+    var listingCount = Math.Min(ItemsPerPage, remaining);
+
+    Span<SaveEntity> updatingEntities = new(save.AllEntitiesList, pos, listingCount);
+
+    ClearList();
+
+    for (int i = 0; i < listingCount; i++)
+      ListItems[i].ContainEntity(updatingEntities[i]);
   }
 }

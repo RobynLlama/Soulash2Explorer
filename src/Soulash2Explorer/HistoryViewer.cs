@@ -32,13 +32,10 @@ public partial class HistoryViewer : PanelContainer
 
   [Export]
   [ExportGroup("Entity View")]
-  public EntityList EntList;
+  public EntityList Listing;
 
   [Export]
   public TextEdit HistoryView;
-
-  [Export]
-  public PackedScene PortraitLayer;
 
   [Export]
   [ExportGroup("Combined History View")]
@@ -91,23 +88,10 @@ public partial class HistoryViewer : PanelContainer
     if (!save.LoadCompleteSave())
       return;
 
-    foreach (var ent in save.AllEntities.Values)
+    foreach (var item in Listing.GetChildren())
     {
-      if (!ent.IsHumanoid)
-        continue;
-
-      var child = EntList.AddListItem($"({ent.EntityID}) {ent.GetFullName}", ent.EntityID);
-
-      child.EntityHistoryRequested += UpdateRequested;
-
-      foreach (var glyph in ent.Glyphs)
-      {
-        var layer = PortraitLayer.Instantiate<Sprite2D>();
-        layer.Texture = PortraitStorage.Texture;
-        layer.RegionRect = new(glyph.Frame.XOffset, glyph.Frame.YOffset, glyph.Frame.Width, glyph.Frame.Height);
-        child.PortraitContainer.AddChild(layer);
-      }
-
+      if (item is EntityListItem child)
+        child.EntityHistoryRequested += UpdateRequested;
     }
 
     Menu.IdPressed += MenuPressed;
@@ -132,6 +116,8 @@ public partial class HistoryViewer : PanelContainer
     """;
 
     InfoVersionField.Text = $"Build: {infVer}";
+
+    Listing.UpdateListFromPosition(save, 0);
   }
 
   private void ReloadWorldHistory()

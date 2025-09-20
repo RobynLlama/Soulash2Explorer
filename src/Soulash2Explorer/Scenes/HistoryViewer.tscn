@@ -1,15 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://b56yh3idnaw18"]
+[gd_scene load_steps=7 format=3 uid="uid://b56yh3idnaw18"]
 
 [ext_resource type="Theme" uid="uid://b3pdmnovl0ceg" path="res://src/Soulash2Explorer/UIThemeGlobal.tres" id="1_d3yqh"]
 [ext_resource type="Script" uid="uid://d2lghe26m6ojt" path="res://src/Soulash2Explorer/HistoryViewer.cs" id="1_feepi"]
-[ext_resource type="PackedScene" uid="uid://bxwatu4biqtjp" path="res://src/Soulash2Explorer/Scenes/PortraitLayerSprite.tscn" id="2_hes2d"]
-[ext_resource type="Script" uid="uid://d5mu4ctn2e84" path="res://src/Soulash2Explorer/EntityList.cs" id="2_xom4v"]
+[ext_resource type="Script" uid="uid://pnh7ynt7mc8l" path="res://src/Soulash2Explorer/EntityList.cs" id="2_xom4v"]
 [ext_resource type="PackedScene" uid="uid://db3innjiphdce" path="res://src/Soulash2Explorer/Scenes/EntityListItem.tscn" id="3_hes2d"]
-[ext_resource type="Script" uid="uid://8sne8j5plljh" path="res://src/Soulash2Explorer/EntityListScrollWidth.cs" id="4_dapy2"]
 [ext_resource type="Texture2D" uid="uid://oxuotkq1qqja" path="res://icon.png" id="4_gkb4t"]
 [ext_resource type="Script" uid="uid://dudbweuhst8o" path="res://src/Soulash2Explorer/TextEditScrollWidth.cs" id="6_8lh2e"]
 
-[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "EntList", "HistoryView", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "InfoVersionField")]
+[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "Listing", "HistoryView", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "InfoVersionField")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,9 +19,8 @@ theme = ExtResource("1_d3yqh")
 script = ExtResource("1_feepi")
 Menu = NodePath("Margins/Layout/MenuBar/Menu")
 SaveScenePath = "uid://2xt0imermq0v"
-EntList = NodePath("Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityList/EntList")
+Listing = NodePath("Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityList/EntList")
 HistoryView = NodePath("Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityHistory")
-PortraitLayer = ExtResource("2_hes2d")
 WorldHistoryLabel = NodePath("Margins/Layout/TabContainer/World History/HistoryBox/LblWorldStats")
 WorldHistoryBox = NodePath("Margins/Layout/TabContainer/World History/HistoryBox/TextWorldHistory")
 HistoryTab = NodePath("Margins/Layout/TabContainer/World History")
@@ -146,15 +143,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 follow_focus = true
 horizontal_scroll_mode = 0
-script = ExtResource("4_dapy2")
-MinScrollSize = 10
 
 [node name="EntList" type="VBoxContainer" parent="Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityList"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("2_xom4v")
-EntityChild = ExtResource("3_hes2d")
+ListItemProto = ExtResource("3_hes2d")
 
 [node name="EntityHistory" type="TextEdit" parent="Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer"]
 layout_mode = 2
