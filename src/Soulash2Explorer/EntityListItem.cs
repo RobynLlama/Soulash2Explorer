@@ -56,6 +56,7 @@ public partial class EntityListItem : PanelContainer
       var layer = PortraitLayer.Instantiate<Sprite2D>();
 
       layer.Texture = PortraitStorage.Texture;
+      layer.Modulate = new(glyph.Color.X, glyph.Color.Y, glyph.Color.Z);
       layer.RegionRect = new(glyph.Frame.XOffset, glyph.Frame.YOffset, glyph.Frame.Width, glyph.Frame.Height);
 
       PortraitContainer.AddChild(layer);

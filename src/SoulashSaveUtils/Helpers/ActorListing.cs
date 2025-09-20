@@ -78,10 +78,24 @@ public static class ActorListing
         //clip the count because I don't need it
         data = data[1..];
 
+        float GetColorFloats(string cdata)
+        {
+          if (!int.TryParse(cdata, out var number))
+            return 1f;
+
+          return number / 255f;
+        }
+
         foreach (var item in data)
         {
           var gInfo = item.Split('*');
-          ent.WithGlyph(new(gInfo[0]));
+          ent.WithGlyph(
+            new(gInfo[0],
+            new(
+              GetColorFloats(gInfo[1]),
+              GetColorFloats(gInfo[2]),
+              GetColorFloats(gInfo[3])
+            )));
         }
       }
 
