@@ -35,6 +35,9 @@ public partial class HistoryViewer : PanelContainer
   public EntityList Listing;
 
   [Export]
+  public ScrollContainer EntityScroller;
+
+  [Export]
   public Button PageBackButton;
 
   [Export]
@@ -139,6 +142,7 @@ public partial class HistoryViewer : PanelContainer
   {
     Listing.UpdateListFromPosition(save, PageNumber * 20);
     PageInfoLabel.Text = $"Page {PageNumber + 1} / {MaxPages + 1}";
+    EntityScroller.GetVScrollBar().Value = 0;
   }
 
   private void ChangePage(int newPage)

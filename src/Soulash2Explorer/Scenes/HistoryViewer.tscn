@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://oxuotkq1qqja" path="res://icon.png" id="4_gkb4t"]
 [ext_resource type="Script" uid="uid://dudbweuhst8o" path="res://src/Soulash2Explorer/TextEditScrollWidth.cs" id="6_8lh2e"]
 
-[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "Listing", "PageBackButton", "PageForwardButton", "PageInfoLabel", "HistoryView", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "InfoVersionField")]
+[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "Listing", "EntityScroller", "PageBackButton", "PageForwardButton", "PageInfoLabel", "HistoryView", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "InfoVersionField")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -20,6 +20,7 @@ script = ExtResource("1_feepi")
 Menu = NodePath("Margins/Layout/MenuBar/Menu")
 SaveScenePath = "uid://2xt0imermq0v"
 Listing = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/EntityList/EntList")
+EntityScroller = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/EntityList")
 PageBackButton = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination/ButtonBack")
 PageForwardButton = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination/ButtonForward")
 PageInfoLabel = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination/PagePanel/LblPageInfo")
