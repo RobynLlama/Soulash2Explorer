@@ -118,8 +118,9 @@ public partial class HistoryViewer : PanelContainer
       {save.WorldHistory.HistoricalEvents.Values.Count} Total Events
     """;
 
+    WorldNameLabel.Text = saveName;
+
     WorldMetaLabel.Text = $"""
-    {saveName}
     Year {save.CycleYear}, Day {save.CycleDay}
 
     Total Entities: {save.AllEntities.Keys.Count}

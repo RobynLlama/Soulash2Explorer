@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://oxuotkq1qqja" path="res://icon.png" id="4_gkb4t"]
 [ext_resource type="Script" uid="uid://dudbweuhst8o" path="res://src/Soulash2Explorer/TextEditScrollWidth.cs" id="6_8lh2e"]
 
-[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("EntList", "HistoryView", "Menu", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab", "WorldMetaLabel", "NoticeLabel", "InfoVersionField")]
+[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "EntList", "HistoryView", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "InfoVersionField")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,14 +19,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_d3yqh")
 script = ExtResource("1_feepi")
-EntList = NodePath("Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityList/EntList")
-HistoryView = NodePath("Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityHistory")
 Menu = NodePath("Margins/Layout/MenuBar/Menu")
 SaveScenePath = "uid://2xt0imermq0v"
+EntList = NodePath("Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityList/EntList")
+HistoryView = NodePath("Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityHistory")
 PortraitLayer = ExtResource("2_hes2d")
 WorldHistoryLabel = NodePath("Margins/Layout/TabContainer/World History/HistoryBox/LblWorldStats")
 WorldHistoryBox = NodePath("Margins/Layout/TabContainer/World History/HistoryBox/TextWorldHistory")
 HistoryTab = NodePath("Margins/Layout/TabContainer/World History")
+WorldNameLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/LblWorldName")
 WorldMetaLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/LblMeta")
 NoticeLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/LogoBox/LblCopyrightNotice")
 InfoVersionField = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/TxtInfoVer")
@@ -70,10 +71,15 @@ metadata/_tab_index = 0
 [node name="SaveMeta" type="VBoxContainer" parent="Margins/Layout/TabContainer/Save Info"]
 layout_mode = 2
 
+[node name="LblWorldName" type="Label" parent="Margins/Layout/TabContainer/Save Info/SaveMeta"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "WORLD NAME"
+horizontal_alignment = 1
+
 [node name="LblMeta" type="Label" parent="Margins/Layout/TabContainer/Save Info/SaveMeta"]
 layout_mode = 2
-text = "World Name
-World Year World Day
+text = "World Year World Day
 
 Total Entities
 Total History Count"
