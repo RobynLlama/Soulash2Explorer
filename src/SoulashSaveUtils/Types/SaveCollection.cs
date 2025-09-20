@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using SoulashSaveUtils.Helpers;
 
 namespace SoulashSaveUtils.Types;
@@ -29,6 +30,7 @@ public class SaveCollection
   public int CycleDay;
 
   public readonly Dictionary<int, SaveEntity> AllEntities = [];
+  public SaveEntity[] AllEntitiesList = [];
   public readonly Dictionary<int, SaveFaction> AllFactions = [];
   public readonly Dictionary<int, SaveBuilding> AllBuildings = [];
   public HistorySave? WorldHistory = null;
@@ -56,6 +58,8 @@ public class SaveCollection
 
     if (!ActorListing.Create(actorsFile, AllEntities))
       return false;
+
+    AllEntitiesList = [.. AllEntities.Values.Where(x => x.IsHumanoid)];
 
     /*
     var total = AllEntities.Keys.Count;
