@@ -2,5 +2,10 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
+
+    <AssemblyVersion>0.2.0.0</AssemblyVersion>
+    <InformationalVersion>$(AssemblyVersion)</InformationalVersion>
+    <Version>$(AssemblyVersion)</Version>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
   </PropertyGroup>
 </Project>

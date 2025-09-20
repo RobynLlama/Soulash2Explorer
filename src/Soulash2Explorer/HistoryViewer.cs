@@ -10,6 +10,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using Godot;
 using SoulashSaveUtils.Helpers;
@@ -43,24 +44,39 @@ public partial class HistoryViewer : PanelContainer
   [Export]
   public MarginContainer HistoryTab;
 
+  [Export]
+  public Label WorldMetaLabel;
+
+  [Export]
+  public Label NoticeLabel;
+
+  [Export]
+  public LineEdit InfoVersionField;
+
   protected SaveCollection save;
   protected bool HistoryLoaded = false;
 
   public override void _Ready()
   {
+    var saveName = Paths.SelectedSave;
+    var host = typeof(HistoryViewer).Assembly;
+    var version = host.GetName().Version;
+    var infVer = host.GetCustomAttributes<AssemblyInformationalVersionAttribute>()
+    .FirstOrDefault()?.InformationalVersion ?? "Unknown Version";
+
     if (string.IsNullOrWhiteSpace(Paths.SelectedSave))
     {
       GD.PushError("Paths are not configured");
       return;
     }
 
-    GD.Print($"Loading: {Paths.SelectedSave}");
+    GD.Print($"Loading: {saveName}");
 
     DataBase.LoadedData = new();
     DataBase.LoadedData.LoadAllDataFromSource("core_2");
     PortraitStorage.LoadTexture();
 
-    save = new(Path.Combine(Paths.ConfiguredPaths.GameSavesPath, Paths.SelectedSave));
+    save = new(Path.Combine(Paths.ConfiguredPaths.GameSavesPath, saveName));
 
     if (!save.LoadCompleteSave())
       return;
@@ -88,9 +104,23 @@ public partial class HistoryViewer : PanelContainer
     HistoryTab.VisibilityChanged += ReloadWorldHistory;
 
     WorldHistoryLabel.Text = $"""
-    {Paths.SelectedSave}
+    {saveName}
       {save.WorldHistory.HistoricalEvents.Values.Count} Total Events
     """;
+
+    WorldMetaLabel.Text = $"""
+    {saveName}
+    Year {save.CycleYear}, Day {save.CycleDay}
+
+    Total Entities: {save.AllEntities.Keys.Count}
+    Total Events  : {save.WorldHistory.HistoricalEvents.Keys.Count}
+    """;
+
+    NoticeLabel.Text = $"""
+    Soulash 2 Explorer {version} written by RobynLlama
+    """;
+
+    InfoVersionField.Text = $"Build: {infVer}";
   }
 
   private void ReloadWorldHistory()
