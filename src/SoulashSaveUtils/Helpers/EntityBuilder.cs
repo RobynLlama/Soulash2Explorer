@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using SoulashSaveUtils.Types;
+#nullable enable
 
 namespace SoulashSaveUtils.Helpers;
 

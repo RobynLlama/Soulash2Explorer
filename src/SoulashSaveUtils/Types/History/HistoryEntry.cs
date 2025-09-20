@@ -7,6 +7,7 @@
   (at your option) any later version.
 */
 
+#nullable enable
 namespace SoulashSaveUtils.Types;
 
 //206575*800*78*1*607509*0*-1*1344*24*-1*-1**-1*-1*0*-1
