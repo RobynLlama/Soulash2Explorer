@@ -52,13 +52,19 @@ public partial class PathAndSaveSelector : PanelContainer
 
     //hook up buttons
     SaveButton.Pressed += OnPressedSave;
-    LoadButton.Pressed += OnPressedLoad;
+    LoadButton.Pressed += () => OnPressedLoad(-1);
+    SaveDisplay.ItemActivated += OnPressedLoad;
   }
 
-  private void OnPressedLoad()
+  private void OnPressedLoad(long sel)
   {
-    int sel = SaveDisplay.GetSelectedItems().FirstOrDefault();
-    string item = SaveDisplay.GetItemText(sel);
+
+    if (sel < 0)
+      sel = SaveDisplay.GetSelectedItems().FirstOrDefault();
+
+    //Send me a long and then use ints
+    //very cool, Godot
+    string item = SaveDisplay.GetItemText((int)sel);
 
     if (!Directory.Exists(Path.Combine(Paths.ConfiguredPaths.GameSavesPath, item)))
     {
