@@ -35,6 +35,15 @@ public partial class HistoryViewer : PanelContainer
   public EntityList Listing;
 
   [Export]
+  public Button PageBackButton;
+
+  [Export]
+  public Button PageForwardButton;
+
+  [Export]
+  public Label PageInfoLabel;
+
+  [Export]
   public TextEdit HistoryView;
 
   [Export]
@@ -62,6 +71,8 @@ public partial class HistoryViewer : PanelContainer
 
   protected SaveCollection save;
   protected bool HistoryLoaded = false;
+  protected int PageNumber = 0;
+  protected int MaxPages = 99;
 
   public override void _Ready()
   {
@@ -116,8 +127,24 @@ public partial class HistoryViewer : PanelContainer
     """;
 
     InfoVersionField.Text = $"Build: {infVer}";
+    MaxPages = save.AllEntitiesList.Length / Listing.ItemsPerPage;
 
-    Listing.UpdateListFromPosition(save, 0);
+    UpdateEntityList();
+
+    PageBackButton.Pressed += () => { ChangePage(--PageNumber); };
+    PageForwardButton.Pressed += () => { ChangePage(++PageNumber); };
+  }
+
+  private void UpdateEntityList()
+  {
+    Listing.UpdateListFromPosition(save, PageNumber * 20);
+    PageInfoLabel.Text = $"Page {PageNumber + 1} / {MaxPages + 1}";
+  }
+
+  private void ChangePage(int newPage)
+  {
+    PageNumber = Math.Clamp(newPage, 0, MaxPages);
+    UpdateEntityList();
   }
 
   private void ReloadWorldHistory()

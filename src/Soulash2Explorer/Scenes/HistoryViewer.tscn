@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://oxuotkq1qqja" path="res://icon.png" id="4_gkb4t"]
 [ext_resource type="Script" uid="uid://dudbweuhst8o" path="res://src/Soulash2Explorer/TextEditScrollWidth.cs" id="6_8lh2e"]
 
-[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "Listing", "HistoryView", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "InfoVersionField")]
+[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "Listing", "PageBackButton", "PageForwardButton", "PageInfoLabel", "HistoryView", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "InfoVersionField")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,8 +19,11 @@ theme = ExtResource("1_d3yqh")
 script = ExtResource("1_feepi")
 Menu = NodePath("Margins/Layout/MenuBar/Menu")
 SaveScenePath = "uid://2xt0imermq0v"
-Listing = NodePath("Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityList/EntList")
-HistoryView = NodePath("Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityHistory")
+Listing = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/EntityList/EntList")
+PageBackButton = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination/ButtonBack")
+PageForwardButton = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination/ButtonForward")
+PageInfoLabel = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination/PagePanel/LblPageInfo")
+HistoryView = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityHistory")
 WorldHistoryLabel = NodePath("Margins/Layout/TabContainer/World History/HistoryBox/LblWorldStats")
 WorldHistoryBox = NodePath("Margins/Layout/TabContainer/World History/HistoryBox/TextWorldHistory")
 HistoryTab = NodePath("Margins/Layout/TabContainer/World History")
@@ -107,51 +110,99 @@ placeholder_text = "Build Info"
 alignment = 1
 editable = false
 
-[node name="Entity History" type="MarginContainer" parent="Margins/Layout/TabContainer"]
+[node name="Actor Viewer" type="MarginContainer" parent="Margins/Layout/TabContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_bottom = 8
 metadata/_tab_index = 1
 
-[node name="EntBox" type="VBoxContainer" parent="Margins/Layout/TabContainer/Entity History"]
+[node name="EntBox" type="VBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 10.0
 
-[node name="LabelLayout" type="HBoxContainer" parent="Margins/Layout/TabContainer/Entity History/EntBox"]
+[node name="LabelLayout" type="HBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox"]
 layout_mode = 2
 
-[node name="LblEntity" type="Label" parent="Margins/Layout/TabContainer/Entity History/EntBox/LabelLayout"]
-layout_mode = 2
-size_flags_horizontal = 6
-theme_override_font_sizes/font_size = 24
-text = "Entity List"
-
-[node name="LblHistory" type="Label" parent="Margins/Layout/TabContainer/Entity History/EntBox/LabelLayout"]
+[node name="LblEntity" type="Label" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/LabelLayout"]
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_font_sizes/font_size = 24
-text = "Entity History"
+text = "Actor List"
 
-[node name="EntityContainer" type="HBoxContainer" parent="Margins/Layout/TabContainer/Entity History/EntBox"]
+[node name="LblHistory" type="Label" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/LabelLayout"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 24
+text = "Actor History"
+
+[node name="EntityContainer" type="HBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="EntityList" type="ScrollContainer" parent="Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="EntityList" type="ScrollContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 follow_focus = true
 horizontal_scroll_mode = 0
 
-[node name="EntList" type="VBoxContainer" parent="Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer/EntityList"]
+[node name="EntList" type="VBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/EntityList"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("2_xom4v")
 ListItemProto = ExtResource("3_hes2d")
 
-[node name="EntityHistory" type="TextEdit" parent="Margins/Layout/TabContainer/Entity History/EntBox/EntityContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="Pagination" type="HBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+
+[node name="ButtonBack" type="Button" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 24
+text = " < "
+
+[node name="PagePanel" type="Panel" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LblPageInfo" type="Label" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination/PagePanel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+text = "Page 0"
+horizontal_alignment = 1
+
+[node name="ButtonForward" type="Button" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 24
+text = " > "
+
+[node name="EntityHistory" type="TextEdit" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Click an entity to view its complete history here"

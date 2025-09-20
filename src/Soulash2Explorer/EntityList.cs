@@ -20,7 +20,7 @@ public partial class EntityList : VBoxContainer
   [Export]
   protected PackedScene ListItemProto;
 
-  protected int ItemsPerPage = 20;
+  public int ItemsPerPage = 20;
   private EntityListItem[] ListItems;
 
   public override void _Ready()
