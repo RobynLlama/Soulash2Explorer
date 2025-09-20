@@ -22,11 +22,20 @@ S2E is a work in progress full save game exploration tool.
 - Change which entity is player controlled
 - Map / Company / State / Etc editor
 
-## Known Issues
+## Most Recent Changelog
 
-- Portraits are not color blended
-- Loading is single threaded (large worlds will make it choke a bit)
-  - Furthermore, loading uses a lot of wasted memory splitting strings instead of using Spans or some other logic
+### 0.2.1.0
+
+- Added a new splash tab for showing general world info
+- Renamed Entity History tab to Actor Viewer for clarity
+  - Actor Viewer tab is now paginated and uses a listing pool to avoid allocations. This dramatically improves performance: loading a world with 800 years of history is now about the same speed as one with 25, for example
+  - Actors now have properly colorized portraits, yay
+
+Known Issues:
+
+- The combined history viewer still reads the whole history in one chunk so it'll still be a little slower on big history worlds but otherwise S2E is so much more responsive now.
+
+View the complete [changelog](CHANGELOG.md)
 
 ---
 
