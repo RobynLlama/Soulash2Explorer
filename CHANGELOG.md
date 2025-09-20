@@ -1,5 +1,25 @@
 # Changelog
 
+## Version 0.2.4.0
+
+Fixes:
+
+- Scroll Bar in Actor Viewer now resets when changing pages
+
+Features:
+
+- Added parsing for the `general.json` save file
+- Modified Save Info tab to a split display in order to display new elements:
+  - Saved Game Version
+  - World Seed
+  - Required Mods
+- Cleaned up the project and removed old test files
+
+Known Issues:
+
+- The combined history viewer was not addressed in this update
+- The inspector will still fail to resolve history, portraits and possibly other items if they originate from saves
+
 ## Version 0.2.1.0
 
 - Added a new splash tab for showing general world info
