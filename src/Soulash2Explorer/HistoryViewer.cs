@@ -62,9 +62,8 @@ public partial class HistoryViewer : PanelContainer
 
     save = new(Path.Combine(Paths.ConfiguredPaths.GameSavesPath, Paths.SelectedSave));
 
-    save.LoadActorsSave();
-    save.LoadFactionSave();
-    save.LoadHistorySave();
+    if (!save.LoadCompleteSave())
+      return;
 
     foreach (var ent in save.AllEntities.Values)
     {
