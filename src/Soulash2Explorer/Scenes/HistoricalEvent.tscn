@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwgos5mbx5rbj"]
+
+[ext_resource type="Script" uid="uid://baxnn1lxlj30w" path="res://src/Soulash2Explorer/HistoricalEventItem.cs" id="1_6fwij"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avasf"]
+bg_color = Color(0.408329, 0.408329, 0.408329, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afhsv"]
+bg_color = Color(0.38, 0.38, 0.38, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6fwij"]
+bg_color = Color(0.6391855, 0.6001338, 0.4706419, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e4xsf"]
+bg_color = Color(0, 0, 0, 0.4745098)
+
+[node name="HistoricalEvent" type="PanelContainer" node_paths=PackedStringArray("PortraitContainer", "EventActorDesc", "EventChronology", "EventDesc")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 31.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_avasf")
+script = ExtResource("1_6fwij")
+PortraitContainer = NodePath("PanelContainer/VBoxContainer/MarginContainer/EntityContainer/PortraitPanel")
+EventActorDesc = NodePath("PanelContainer/VBoxContainer/MarginContainer/EntityContainer/VBoxContainer/EntityName")
+EventChronology = NodePath("PanelContainer/VBoxContainer/ChronologyBackground/EventChronology/EventWhen")
+EventDesc = NodePath("PanelContainer/VBoxContainer/MarginContainer/EntityContainer/VBoxContainer/EventDescription")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_afhsv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="ChronologyBackground" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_6fwij")
+
+[node name="EventChronology" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ChronologyBackground"]
+layout_mode = 2
+
+[node name="EventWhen" type="Label" parent="PanelContainer/VBoxContainer/ChronologyBackground/EventChronology"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "Year 300, Day 35 (# 2854)"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = -4
+theme_override_constants/margin_bottom = 4
+
+[node name="EntityContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="PortraitPanel" type="PanelContainer" parent="PanelContainer/VBoxContainer/MarginContainer/EntityContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_e4xsf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/EntityContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EntityName" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/EntityContainer/VBoxContainer"]
+layout_mode = 2
+text = "This Dude (# 456)"
+
+[node name="EventDescription" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/EntityContainer/VBoxContainer"]
+layout_mode = 2
+text = "This dude got a new job"
