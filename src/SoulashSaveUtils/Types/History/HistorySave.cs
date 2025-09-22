@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 #nullable enable
 
 namespace SoulashSaveUtils.Types;
@@ -34,6 +35,7 @@ public class HistorySave
   public int TotalHistoryEntriesInFile => TotalHistoryEntries + 2;
 
   public readonly Dictionary<int, HistoryEntry> HistoricalEvents = [];
+  public HistoryEntry[] ChronologicalHistory = [];
 
   public bool SafeAddHistory(HistoryEntry? entry)
   {
@@ -48,6 +50,11 @@ public class HistorySave
 
     HistoricalEvents.Add(entry.EventID, entry);
     return true;
+  }
+
+  public void RebuildChronology()
+  {
+    ChronologicalHistory = [.. HistoricalEvents.Values.OrderByDescending(x => x.Year * -100 - x.Day)];
   }
 
   public static HistorySave? FromFile(FileInfo historyFile)
@@ -79,6 +86,8 @@ public class HistorySave
 
     for (int i = 2; i < intCount + 2; i++)
       hs.SafeAddHistory(HistoryEntry.FromString(allHistory[i]));
+
+    hs.RebuildChronology();
 
     return hs;
   }
