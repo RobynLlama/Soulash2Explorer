@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b56yh3idnaw18"]
+[gd_scene load_steps=10 format=3 uid="uid://b56yh3idnaw18"]
 
 [ext_resource type="Theme" uid="uid://b3pdmnovl0ceg" path="res://src/Soulash2Explorer/UIThemeGlobal.tres" id="1_d3yqh"]
 [ext_resource type="Script" uid="uid://d2lghe26m6ojt" path="res://src/Soulash2Explorer/HistoryViewer.cs" id="1_feepi"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://db3innjiphdce" path="res://src/Soulash2Explorer/Scenes/EntityListItem.tscn" id="3_hes2d"]
 [ext_resource type="Texture2D" uid="uid://oxuotkq1qqja" path="res://icon.png" id="4_gkb4t"]
 [ext_resource type="Script" uid="uid://dudbweuhst8o" path="res://src/Soulash2Explorer/TextEditScrollWidth.cs" id="6_8lh2e"]
+[ext_resource type="Script" uid="uid://co2cx2a07jbdo" path="res://src/Soulash2Explorer/PortraitCache.cs" id="7_gkb4t"]
+[ext_resource type="PackedScene" uid="uid://bxwatu4biqtjp" path="res://src/Soulash2Explorer/Scenes/PortraitLayerSprite.tscn" id="8_0eh5g"]
+[ext_resource type="Texture2D" uid="uid://sn04lhqqcymj" path="res://Images/blank.png" id="9_0eh5g"]
 
 [node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "Listing", "EntityScroller", "PageBackButton", "PageForwardButton", "PageInfoLabel", "HistoryView", "WorldHistoryLabel", "WorldHistoryBox", "HistoryTab", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "ModsList", "InfoVersionField")]
 anchors_preset = 15
@@ -280,3 +283,12 @@ virtual_keyboard_enabled = false
 middle_mouse_paste_enabled = false
 script = ExtResource("6_8lh2e")
 MinScrollSize = 10
+
+[node name="PortraitCache" type="Node" parent="." node_paths=PackedStringArray("EmptyPortrait")]
+script = ExtResource("7_gkb4t")
+LayerProto = ExtResource("8_0eh5g")
+EmptyPortrait = NodePath("EmptyPortrait")
+
+[node name="EmptyPortrait" type="Sprite2D" parent="PortraitCache"]
+texture = ExtResource("9_0eh5g")
+centered = false

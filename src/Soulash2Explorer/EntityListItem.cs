@@ -51,16 +51,7 @@ public partial class EntityListItem : PanelContainer
   {
     Clear();
 
-    foreach (var glyph in ent.Glyphs)
-    {
-      var layer = PortraitLayer.Instantiate<Sprite2D>();
-
-      layer.Texture = PortraitStorage.Texture;
-      layer.Modulate = new(glyph.Color.X, glyph.Color.Y, glyph.Color.Z);
-      layer.RegionRect = new(glyph.Frame.XOffset, glyph.Frame.YOffset, glyph.Frame.Width, glyph.Frame.Height);
-
-      PortraitContainer.AddChild(layer);
-    }
+    PortraitContainer.AddChild(PortraitCache.Instance.GetPortrait(ent).Instantiate());
 
     Desc.Text = ent.GetFullName;
     EntityID = ent.EntityID;
