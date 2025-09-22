@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 0.3.0.0
+
+Features:
+
+- HistorySave keeps a chronological order of events
+- Combined History Viewer now uses pagination and the new ordered history
+- Entity History uses the new ordered history
+- Unknown Entities use a default portrait
+- Added portrait caching
+  - Caching does not have eviction because the cost is so small, report any issues, please
+
 ## Version 0.2.4.0
 
 Fixes:
@@ -18,7 +29,7 @@ Features:
 Known Issues:
 
 - The combined history viewer was not addressed in this update
-- The inspector will still fail to resolve history, portraits and possibly other items if they originate from saves
+- The inspector will still fail to resolve history, portraits and possibly other items if those items originate from modded content
 
 ## Version 0.2.1.0
 

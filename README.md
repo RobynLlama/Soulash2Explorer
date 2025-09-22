@@ -24,25 +24,16 @@ S2E is a work in progress full save game exploration tool.
 
 ## Most Recent Changelog
 
-### Version 0.2.4.0
-
-Fixes:
-
-- Scroll Bar in Actor Viewer now resets when changing pages
+### Version 0.3.0.0
 
 Features:
 
-- Added parsing for the `general.json` save file
-- Modified Save Info tab to a split display in order to display new elements:
-  - Saved Game Version
-  - World Seed
-  - Required Mods
-- Cleaned up the project and removed old test files
-
-Known Issues:
-
-- The combined history viewer was not addressed in this update
-- The inspector will still fail to resolve history, portraits and possibly other items if they originate from saves
+- HistorySave keeps a chronological order of events
+- Combined History Viewer now uses pagination and the new ordered history
+- Entity History uses the new ordered history
+- Unknown Entities use a default portrait
+- Added portrait caching
+  - Caching does not have eviction because the cost is so small, report any issues, please
 
 View the complete [changelog](CHANGELOG.md)
 
