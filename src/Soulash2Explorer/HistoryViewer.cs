@@ -215,7 +215,7 @@ public partial class HistoryViewer : PanelContainer
     if (save.AllEntities.Values.FirstOrDefault(x => x.EntityID == entID) is not SaveEntity entity)
       return;
 
-    var events = save.WorldHistory.HistoricalEvents.Values.Where(x => x.Who == entID);
+    var events = save.WorldHistory.ChronologicalHistory.Where(x => x.Who == entID);
     StringBuilder hs = new();
 
     hs.AppendLine(entity.GetFullName);
