@@ -38,10 +38,10 @@ public partial class HistoryViewer : PanelContainer
   public ScrollContainer EntityScroller;
 
   [Export]
-  public Button PageBackButton;
+  public Button ActorBackButton;
 
   [Export]
-  public Button PageForwardButton;
+  public Button ActorForwardButton;
 
   [Export]
   public Label PageInfoLabel;
@@ -54,10 +54,19 @@ public partial class HistoryViewer : PanelContainer
   public Label WorldHistoryLabel;
 
   [Export]
-  public TextEdit WorldHistoryBox;
+  public HistoryList HistoryListing;
 
   [Export]
-  public MarginContainer HistoryTab;
+  public ScrollContainer HistoryScroller;
+
+  [Export]
+  public Button HistoryBackButton;
+
+  [Export]
+  public Button HistoryForwardButton;
+
+  [Export]
+  public Label HistoryPageLabel;
 
   [Export]
   [ExportGroup("Meta View")]
@@ -76,9 +85,12 @@ public partial class HistoryViewer : PanelContainer
   public LineEdit InfoVersionField;
 
   protected SaveCollection save;
-  protected bool HistoryLoaded = false;
-  protected int PageNumber = 0;
-  protected int MaxPages = 99;
+
+  protected int ActorPageNumber = 0;
+  protected int MaxActorPages = 99;
+
+  protected int HistoryPageNumber = 0;
+  protected int MaxHistoryPages = 99;
 
   public override void _Ready()
   {
@@ -112,7 +124,6 @@ public partial class HistoryViewer : PanelContainer
     }
 
     Menu.IdPressed += MenuPressed;
-    HistoryTab.VisibilityChanged += ReloadWorldHistory;
 
     WorldHistoryLabel.Text = $"""
     {saveName}
@@ -147,47 +158,38 @@ public partial class HistoryViewer : PanelContainer
     """;
 
     InfoVersionField.Text = $"Build: {infVer}";
-    MaxPages = save.AllEntitiesList.Length / Listing.ItemsPerPage;
 
-    UpdateEntityList();
+    MaxActorPages = save.AllEntitiesList.Length / Listing.ItemsPerPage;
+    MaxHistoryPages = save.WorldHistory.ChronologicalHistory.Length / HistoryListing.ItemsPerPage;
 
-    PageBackButton.Pressed += () => { ChangePage(--PageNumber); };
-    PageForwardButton.Pressed += () => { ChangePage(++PageNumber); };
+    ActorBackButton.Pressed += () => { ChangeActorPage(--ActorPageNumber); };
+    ActorForwardButton.Pressed += () => { ChangeActorPage(++ActorPageNumber); };
+
+    HistoryBackButton.Pressed += () => { ChangeHistoryPage(--HistoryPageNumber); };
+    HistoryForwardButton.Pressed += () => { ChangeHistoryPage(++HistoryPageNumber); };
+
+    ChangeActorPage(0);
+    ChangeHistoryPage(0);
   }
 
-  private void UpdateEntityList()
+  private void UpdatePaginationForLabel(Label whichLabel, int page, int max, ScrollContainer container)
   {
-    Listing.UpdateListFromPosition(save, PageNumber * 20);
-    PageInfoLabel.Text = $"Page {PageNumber + 1} / {MaxPages + 1}";
-    EntityScroller.GetVScrollBar().Value = 0;
+    whichLabel.Text = $"Page {page + 1} / {max + 1}";
+    container.GetVScrollBar().Value = 0;
   }
 
-  private void ChangePage(int newPage)
+  private void ChangeActorPage(int newPage)
   {
-    PageNumber = Math.Clamp(newPage, 0, MaxPages);
-    UpdateEntityList();
+    ActorPageNumber = Math.Clamp(newPage, 0, MaxActorPages);
+    Listing.UpdateListFromPosition(save, ActorPageNumber * Listing.ItemsPerPage);
+    UpdatePaginationForLabel(PageInfoLabel, ActorPageNumber, MaxActorPages, EntityScroller);
   }
 
-  private void ReloadWorldHistory()
+  private void ChangeHistoryPage(int newPage)
   {
-    if (HistoryLoaded)
-      return;
-
-    StringBuilder hs = new($"""
-    World History for {Paths.SelectedSave}
-
-    
-    """);
-
-    foreach (var item in save.WorldHistory.HistoricalEvents.Values)
-    {
-      hs.AppendLine(item.ToString(save));
-      hs.AppendLine();
-    }
-
-    WorldHistoryBox.Text = hs.ToString();
-
-    HistoryLoaded = true;
+    HistoryPageNumber = Math.Clamp(newPage, 0, MaxHistoryPages);
+    HistoryListing.UpdateListFromPosition(save, HistoryPageNumber * HistoryListing.ItemsPerPage);
+    UpdatePaginationForLabel(HistoryPageLabel, HistoryPageNumber, MaxHistoryPages, HistoryScroller);
   }
 
   private void MenuPressed(long id)
