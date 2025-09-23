@@ -20,6 +20,7 @@ public class EntityBuilder
   private SaveEntityName? Name;
   private bool IsHumanoid = false;
   private List<Glyph> Glyphs = [];
+  private List<IEntityComponent> Components = [];
   public EntityBuilder WithID(int entID)
   {
     ID = entID;
@@ -50,6 +51,12 @@ public class EntityBuilder
     return this;
   }
 
+  public EntityBuilder WithComponent(IEntityComponent component)
+  {
+    Components.Add(component);
+    return this;
+  }
+
   public EntityBuilder Reset()
   {
     ID = null;
@@ -67,6 +74,6 @@ public class EntityBuilder
       throw new ArgumentNullException(nameof(ID));
     ArgumentNullException.ThrowIfNull(Name);
 
-    return new(goodID, Name, IsHumanoid, [.. Glyphs]);
+    return new(goodID, Name, IsHumanoid, [.. Glyphs], [.. Components]);
   }
 }
