@@ -15,6 +15,10 @@ run/main_scene="uid://2xt0imermq0v"
 config/features=PackedStringArray("4.5", "C#", "GL Compatibility")
 config/icon="uid://oxuotkq1qqja"
 
+[autoload]
+
+PortraitCaching="*res://src/Soulash2Explorer/Scenes/PortraitCache.tscn"
+
 [dotnet]
 
 project/assembly_name="Soulash2Explorer"

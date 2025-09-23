@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b56yh3idnaw18"]
+[gd_scene load_steps=9 format=3 uid="uid://b56yh3idnaw18"]
 
 [ext_resource type="Theme" uid="uid://b3pdmnovl0ceg" path="res://src/Soulash2Explorer/UIThemeGlobal.tres" id="1_d3yqh"]
 [ext_resource type="Script" uid="uid://d2lghe26m6ojt" path="res://src/Soulash2Explorer/HistoryViewer.cs" id="1_feepi"]
@@ -7,10 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://oxuotkq1qqja" path="res://icon.png" id="4_gkb4t"]
 [ext_resource type="Script" uid="uid://dudbweuhst8o" path="res://src/Soulash2Explorer/TextEditScrollWidth.cs" id="6_8lh2e"]
 [ext_resource type="Script" uid="uid://d7gkd1nc08iq" path="res://src/Soulash2Explorer/HistoryList.cs" id="7_cof33"]
-[ext_resource type="Script" uid="uid://co2cx2a07jbdo" path="res://src/Soulash2Explorer/PortraitCache.cs" id="7_gkb4t"]
-[ext_resource type="PackedScene" uid="uid://bxwatu4biqtjp" path="res://src/Soulash2Explorer/Scenes/PortraitLayerSprite.tscn" id="8_0eh5g"]
 [ext_resource type="PackedScene" uid="uid://dwgos5mbx5rbj" path="res://src/Soulash2Explorer/Scenes/HistoricalEvent.tscn" id="8_kvwa0"]
-[ext_resource type="Texture2D" uid="uid://sn04lhqqcymj" path="res://Images/blank.png" id="9_0eh5g"]
 
 [node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "Listing", "EntityScroller", "ActorBackButton", "ActorForwardButton", "PageInfoLabel", "HistoryView", "WorldHistoryLabel", "HistoryListing", "HistoryScroller", "HistoryBackButton", "HistoryForwardButton", "HistoryPageLabel", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "ModsList", "InfoVersionField")]
 anchors_preset = 15
@@ -326,12 +323,3 @@ layout_mode = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 24
 text = " > "
-
-[node name="PortraitCache" type="Node" parent="." node_paths=PackedStringArray("EmptyPortrait")]
-script = ExtResource("7_gkb4t")
-LayerProto = ExtResource("8_0eh5g")
-EmptyPortrait = NodePath("EmptyPortrait")
-
-[node name="EmptyPortrait" type="Sprite2D" parent="PortraitCache"]
-texture = ExtResource("9_0eh5g")
-centered = false

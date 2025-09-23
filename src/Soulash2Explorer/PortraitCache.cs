@@ -14,6 +14,7 @@ using SoulashSaveUtils.Types;
 
 namespace Soulash2Explorer;
 
+[GlobalClass]
 public partial class PortraitCache : Node
 {
   public static PortraitCache Instance { get; protected set; }
