@@ -13,7 +13,8 @@ using SoulashSaveUtils.Types;
 
 namespace Soulash2Explorer;
 
-public partial class HistoricalEventItem : PanelContainer
+[GlobalClass]
+public partial class HistoricalEventItem : MarginContainer
 {
   [Export]
   public PanelContainer PortraitContainer;

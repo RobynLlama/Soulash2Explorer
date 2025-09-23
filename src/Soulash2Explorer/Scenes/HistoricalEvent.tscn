@@ -1,9 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://dwgos5mbx5rbj"]
+[gd_scene load_steps=5 format=3 uid="uid://dwgos5mbx5rbj"]
 
 [ext_resource type="Script" uid="uid://baxnn1lxlj30w" path="res://src/Soulash2Explorer/HistoricalEventItem.cs" id="1_6fwij"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avasf"]
-bg_color = Color(0.408329, 0.408329, 0.408329, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afhsv"]
 bg_color = Color(0.38, 0.38, 0.38, 1)
@@ -14,19 +11,23 @@ bg_color = Color(0.6391855, 0.6001338, 0.4706419, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e4xsf"]
 bg_color = Color(0, 0, 0, 0.4745098)
 
-[node name="HistoricalEvent" type="PanelContainer" node_paths=PackedStringArray("PortraitContainer", "EventActorDesc", "EventChronology", "EventDesc")]
+[node name="HistoricalEvent" type="MarginContainer" node_paths=PackedStringArray("PortraitContainer", "EventActorDesc", "EventChronology", "EventDesc")]
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 31.0
+offset_bottom = 94.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_avasf")
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 6
 script = ExtResource("1_6fwij")
 PortraitContainer = NodePath("PanelContainer/VBoxContainer/MarginContainer/EntityContainer/PortraitPanel")
 EventActorDesc = NodePath("PanelContainer/VBoxContainer/MarginContainer/EntityContainer/VBoxContainer/EntityName")
 EventChronology = NodePath("PanelContainer/VBoxContainer/ChronologyBackground/EventChronology/EventWhen")
 EventDesc = NodePath("PanelContainer/VBoxContainer/MarginContainer/EntityContainer/VBoxContainer/EventDescription")
+metadata/_custom_type_script = "uid://baxnn1lxlj30w"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
