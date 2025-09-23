@@ -203,15 +203,13 @@ public partial class HistoryViewer : PanelContainer
         GetTree().Quit();
         break;
       default:
-        GD.Print($"Unhandled ID pressed: {id}");
+        GD.PushWarning($"Unhandled ID pressed: {id}");
         break;
     }
   }
 
   private void UpdateRequested(int entID)
   {
-    GD.Print($"Update requested by ent: {entID}");
-
     if (save.AllEntities.Values.FirstOrDefault(x => x.EntityID == entID) is not SaveEntity entity)
       return;
 

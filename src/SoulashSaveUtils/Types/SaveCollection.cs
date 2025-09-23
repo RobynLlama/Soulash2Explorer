@@ -70,24 +70,12 @@ public class SaveCollection
 
   public bool LoadActorsSave()
   {
-    Console.WriteLine("Reading Actors");
     FileInfo actorsFile = new(Path.Combine(SaveDir.FullName, ActorsSaveFile));
 
     if (!ActorListing.Create(actorsFile, AllEntities))
       return false;
 
     AllEntitiesList = [.. AllEntities.Values.Where(x => x.IsHumanoid)];
-
-    /*
-    var total = AllEntities.Keys.Count;
-    var humanoid = AllEntities.Values.Where(x => x.IsHumanoid).Count();
-
-    Console.WriteLine($"""
-    Total Entities: {total}
-      Humanoid:     {humanoid}
-      Other:        {total - humanoid}
-    """);
-    */
 
     return true;
   }
@@ -148,7 +136,7 @@ public class SaveCollection
 
     if (history is null)
     {
-      Console.WriteLine("Unable to load history");
+      GD.PushError("Unable to load history");
       return false;
     }
 
@@ -163,7 +151,7 @@ public class SaveCollection
     if (!FactionListing.Create(factionFile, AllFactions))
       return false;
 
-    Console.WriteLine($"""
+    GD.Print($"""
     Total Factions:
       {AllFactions.Keys.Count}
     """);
@@ -178,7 +166,7 @@ public class SaveCollection
     if (!BuildingListing.Create(buildingFile, AllBuildings))
       return false;
 
-    Console.WriteLine($"""
+    GD.Print($"""
     Total Buildings:
       {AllBuildings.Keys.Count}
     """);

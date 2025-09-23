@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Godot;
 using SoulashSaveUtils.Types;
 
 namespace SoulashSaveUtils.Helpers;
@@ -20,7 +21,7 @@ public static class BuildingListing
   {
     if (!buildingFile.Exists)
     {
-      Console.WriteLine("Building file doesn't real");
+      GD.PushError("Building file doesn't real");
       return false;
     }
 
@@ -38,7 +39,6 @@ public static class BuildingListing
       if (string.IsNullOrEmpty(name))
         name = "[NO NAME]";
 
-      Console.WriteLine($"Building: {id}/{name}");
       table[id] = new(id, name);
     }
 

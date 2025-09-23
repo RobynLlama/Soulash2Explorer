@@ -31,11 +31,11 @@ public static class ActorListing
   {
     if (!actorsFile.Exists)
     {
-      Console.WriteLine("Actors file doesn't real");
+      GD.PushError("Actors file doesn't real");
       return false;
     }
 
-    using TextReader actors = new StreamReader(actorsFile.FullName);
+    using StreamReader actors = new(actorsFile.FullName);
     bool set = false;
     EntityBuilder ent = new();
 
@@ -48,7 +48,7 @@ public static class ActorListing
       table[entity.EntityID] = entity;
       if (entity.IsHumanoid)
       {
-        Console.WriteLine($"""
+        GD.Print($"""
             Entity: {entity.EntityID}, {entity.GetFullName}
             """);
       }
@@ -108,7 +108,6 @@ public static class ActorListing
 
       if (ComponentLibrary.TryGetValue(componentName, out var builder))
       {
-        GD.Print($"Building component {componentName}");
         ent.WithComponent(builder(componentArgs));
         continue;
       }

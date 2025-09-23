@@ -24,7 +24,7 @@ public static class PortraitStorage
     GD.Print($"Loading {texPath}");
     if (image.Load(texPath) != Error.Ok)
     {
-      GD.Print("Unable to load file");
+      GD.PushError("Unable to load portrait file");
       return;
     }
 
