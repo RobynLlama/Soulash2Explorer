@@ -28,11 +28,16 @@ public class SaveCollection
   public HistorySave WorldHistory = new();
   public GeneralSave GeneralSaveData = new();
 
+#nullable enable
+  public SaveEntity? PlayerEntity;
+#nullable restore
+
   private const string ActorsSaveFile = "actors.sav";
   private const string GeneralSaveFile = "general.json";
   private const string HistorySaveFile = "history_events.sav";
   private const string FactionsSaveFile = "factions.sav";
   private const string BuildingsSaveFile = "buildings.sav";
+  private const string PlayerSaveFile = "player.sav";
 
   public SaveCollection(string dir)
   {
@@ -42,6 +47,25 @@ public class SaveCollection
   public SaveCollection(DirectoryInfo dir)
   {
     SaveDir = dir;
+  }
+
+  public bool LoadCompleteSave()
+  {
+    if (!LoadGeneralSave())
+      return false;
+
+    if (!LoadActorsSave())
+      return false;
+
+    LoadPlayerSave();
+
+    if (!LoadFactionSave())
+      return false;
+
+    if (!LoadHistorySave())
+      return false;
+
+    return true;
   }
 
   public bool LoadActorsSave()
@@ -68,19 +92,25 @@ public class SaveCollection
     return true;
   }
 
-  public bool LoadCompleteSave()
+  public bool LoadPlayerSave()
   {
-    if (!LoadGeneralSave())
-      return false;
+    var playerFile = new FileInfo(Path.Combine(SaveDir.FullName, PlayerSaveFile));
 
-    if (!LoadActorsSave())
+    if (!playerFile.Exists)
+    {
+      GD.Print("Notice: No player entity exists in save");
       return false;
+    }
 
-    if (!LoadFactionSave())
-      return false;
+    Dictionary<int, SaveEntity> playerData = [];
+    ActorListing.Create(playerFile, playerData);
+    PlayerEntity = playerData.Values.Where(x => x.IsHumanoid).FirstOrDefault();
 
-    if (!LoadHistorySave())
-      return false;
+    foreach (var item in playerData.Values)
+      AllEntities[item.EntityID] = item;
+
+    if (PlayerEntity is not null)
+      AllEntitiesList = [PlayerEntity, .. AllEntitiesList];
 
     return true;
   }
