@@ -10,12 +10,23 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Godot;
 using SoulashSaveUtils.Types;
 
 namespace SoulashSaveUtils.Helpers;
 
 public static class ActorListing
 {
+  private static readonly Dictionary<string, Func<string[], IEntityComponent>> ComponentLibrary = new(StringComparer.OrdinalIgnoreCase);
+  public static void RegisterComponentType(string name, Func<string[], IEntityComponent> builder) =>
+    ComponentLibrary[name] = builder;
+
+  static ActorListing()
+  {
+    RegisterComponentType("Actor", ActorComponent.BuildComponent);
+    RegisterComponentType("Collidable", CollidableComponent.BuildComponent);
+    RegisterComponentType("Player", PlayerComponent.BuildComponent);
+  }
   public static bool Create(FileInfo actorsFile, Dictionary<int, SaveEntity> table)
   {
     if (!actorsFile.Exists)
@@ -45,6 +56,7 @@ public static class ActorListing
 
     while (actors.ReadLine() is string next && !string.IsNullOrEmpty(next))
     {
+      //Starting a new entity / completing the old one
       if (next == "ENTITY:")
       {
         set = false;
@@ -53,50 +65,11 @@ public static class ActorListing
         continue;
       }
 
+      //Nothing but the EntityID shows up before a SET directive
       if (next == "SET:")
       {
         set = true;
         continue;
-      }
-
-      if (next.StartsWith("Name;"))
-      {
-        ent.WithName(next[5..]);
-        continue;
-      }
-
-      if (next.StartsWith("Humanoid;"))
-      {
-        ent.SetHumanoid();
-        continue;
-      }
-
-      if (next.StartsWith("Glyph;"))
-      {
-        var data = next[6..].Split('|');
-
-        //clip the count because I don't need it
-        data = data[1..];
-
-        float GetColorFloats(string cdata)
-        {
-          if (!int.TryParse(cdata, out var number))
-            return 1f;
-
-          return number / 255f;
-        }
-
-        foreach (var item in data)
-        {
-          var gInfo = item.Split('*');
-          ent.WithGlyph(
-            new(gInfo[0],
-            new(
-              GetColorFloats(gInfo[1]),
-              GetColorFloats(gInfo[2]),
-              GetColorFloats(gInfo[3])
-            )));
-        }
       }
 
       if (!set && next.Contains(';'))
@@ -106,7 +79,77 @@ public static class ActorListing
         if (int.TryParse(lineParsed[0], out var id))
           ent.WithID(id);
         else
-          Console.WriteLine($"Skipping bad ID: {lineParsed[0]}");
+          GD.PushWarning($"Skipping bad ID: {lineParsed[0]}");
+
+        continue;
+      }
+
+      if (!set)
+      {
+        GD.PushWarning($"Components detected before SET directive while parsing an entity");
+        continue;
+      }
+
+      var componentData = next.Split(';');
+      string componentName;
+      string[] componentArgs = [];
+
+      if (componentData.Length > 0)
+      {
+        componentName = componentData[0];
+        if (componentData.Length > 1)
+          componentArgs = componentData[1].Split('|');
+      }
+      else
+      {
+        GD.PushWarning("Bad component in entity");
+        continue;
+      }
+
+      if (ComponentLibrary.TryGetValue(componentName, out var builder))
+      {
+        GD.Print($"Building component {componentName}");
+        ent.WithComponent(builder(componentArgs));
+        continue;
+      }
+
+      //Todo: get rid of these and use components or something
+      switch (componentName)
+      {
+        case "Name":
+          ent.WithName(next[5..]);
+          continue;
+        case "Humanoid":
+          ent.SetHumanoid();
+          continue;
+        case "Glyph":
+          var data = componentArgs;
+
+          //clip the count because I don't need it
+          data = data[1..];
+
+          float GetColorFloat(string cdata)
+          {
+            if (!int.TryParse(cdata, out var number))
+              return 1f;
+
+            return number / 255f;
+          }
+
+          foreach (var item in data)
+          {
+            var gInfo = item.Split('*');
+            ent.WithGlyph(
+              new(gInfo[0],
+              new(
+                GetColorFloat(gInfo[1]),
+                GetColorFloat(gInfo[2]),
+                GetColorFloat(gInfo[3])
+              )));
+          }
+          continue;
+        default:
+          continue;
       }
     }
 
