@@ -25,12 +25,12 @@ public static class Paths
 
     if (new FileInfo(path).Exists)
     {
-      GD.Print("Loading path settings from config");
+      LoggingWindow.Instance.LogMessage("Loading path settings from config");
       ConfiguredPaths = ResourceLoader.Load<PathConfig>(path);
       return;
     }
 
-    GD.Print("Using default path settings");
+    LoggingWindow.Instance.LogMessage("Using default path settings");
     ConfiguredPaths = new();
   }
 

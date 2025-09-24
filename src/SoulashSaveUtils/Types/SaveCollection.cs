@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using Godot;
+using Soulash2Explorer;
 using SoulashSaveUtils.Helpers;
 
 namespace SoulashSaveUtils.Types;
@@ -86,7 +87,7 @@ public class SaveCollection
 
     if (!playerFile.Exists)
     {
-      GD.Print("Notice: No player entity exists in save");
+      LoggingWindow.Instance.LogMessage("Notice: No player entity exists in save");
       return false;
     }
 
@@ -109,7 +110,7 @@ public class SaveCollection
 
     if (!generalFile.Exists)
     {
-      GD.PushError("General Save doesn't real");
+      LoggingWindow.Instance.LogError("General Save doesn't real");
       return false;
     }
 
@@ -119,7 +120,7 @@ public class SaveCollection
 
     if (JsonSerializer.Deserialize<GeneralSave>(data) is not GeneralSave gs)
     {
-      GD.PushError("General Save did not deserialize");
+      LoggingWindow.Instance.LogError("General Save did not deserialize");
       return false;
     }
 
@@ -136,7 +137,7 @@ public class SaveCollection
 
     if (history is null)
     {
-      GD.PushError("Unable to load history");
+      LoggingWindow.Instance.LogError("Unable to load history");
       return false;
     }
 
@@ -151,7 +152,7 @@ public class SaveCollection
     if (!FactionListing.Create(factionFile, AllFactions))
       return false;
 
-    GD.Print($"""
+    LoggingWindow.Instance.LogMessage($"""
     Total Factions:
       {AllFactions.Keys.Count}
     """);
@@ -166,7 +167,7 @@ public class SaveCollection
     if (!BuildingListing.Create(buildingFile, AllBuildings))
       return false;
 
-    GD.Print($"""
+    LoggingWindow.Instance.LogMessage($"""
     Total Buildings:
       {AllBuildings.Keys.Count}
     """);

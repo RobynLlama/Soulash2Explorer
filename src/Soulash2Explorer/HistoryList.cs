@@ -45,7 +45,7 @@ public partial class HistoryList : VBoxContainer
   {
     if (pos < 0 || pos > save.WorldHistory.ChronologicalHistory.Length)
     {
-      GD.PushWarning($"Ignoring a bad pos index while paging through entities: {pos}");
+      LoggingWindow.Instance.LogWarning($"Ignoring a bad pos index while paging through entities: {pos}");
       return;
     }
 

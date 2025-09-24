@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Godot;
+using Soulash2Explorer;
 using SoulashSaveUtils.Types;
 
 namespace SoulashSaveUtils.Helpers;
@@ -31,7 +32,7 @@ public static class ActorListing
   {
     if (!actorsFile.Exists)
     {
-      GD.PushError("Actors file doesn't real");
+      LoggingWindow.Instance.LogError("Actors file doesn't real");
       return false;
     }
 
@@ -48,7 +49,7 @@ public static class ActorListing
       table[entity.EntityID] = entity;
       if (entity.IsHumanoid)
       {
-        GD.Print($"""
+        LoggingWindow.Instance.LogMessage($"""
             Entity: {entity.EntityID}, {entity.GetFullName}
             """);
       }
@@ -79,14 +80,14 @@ public static class ActorListing
         if (int.TryParse(lineParsed[0], out var id))
           ent.WithID(id);
         else
-          GD.PushWarning($"Skipping bad ID: {lineParsed[0]}");
+          LoggingWindow.Instance.LogWarning($"Skipping bad ID: {lineParsed[0]}");
 
         continue;
       }
 
       if (!set)
       {
-        GD.PushWarning($"Components detected before SET directive while parsing an entity");
+        LoggingWindow.Instance.LogWarning($"Components detected before SET directive while parsing an entity");
         continue;
       }
 
@@ -102,7 +103,7 @@ public static class ActorListing
       }
       else
       {
-        GD.PushWarning("Bad component in entity");
+        LoggingWindow.Instance.LogWarning("Bad component in entity");
         continue;
       }
 

@@ -102,11 +102,11 @@ public partial class HistoryViewer : PanelContainer
 
     if (string.IsNullOrWhiteSpace(Paths.SelectedSave))
     {
-      GD.PushError("Paths are not configured");
+      LoggingWindow.Instance.LogError("Paths are not configured");
       return;
     }
 
-    GD.Print($"Loading: {saveName}");
+    LoggingWindow.Instance.LogMessage($"Loading: {saveName}");
 
     DataBase.LoadedData = new();
     DataBase.LoadedData.LoadAllDataFromSource("core_2");
@@ -206,7 +206,7 @@ public partial class HistoryViewer : PanelContainer
         LoggingWindow.Instance.Visible = true;
         break;
       default:
-        GD.PushWarning($"Unhandled ID pressed: {id}");
+        LoggingWindow.Instance.LogWarning($"Unhandled ID pressed: {id}");
         break;
     }
   }

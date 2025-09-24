@@ -46,7 +46,7 @@ public partial class PortraitCache : Node
     var err = PortraitContainer.Pack(d);
 
     if (err != Error.Ok)
-      GD.PushError($"Error packing prefab: {err}");
+      LoggingWindow.Instance.LogError($"Error packing prefab: {err}");
   }
 
   public PortraitCache()
@@ -66,7 +66,7 @@ public partial class PortraitCache : Node
     var err = EmptyPortProto.Pack(empty);
 
     if (err != Error.Ok)
-      GD.PushError($"Unable to pack Empty Portrait {err}");
+      LoggingWindow.Instance.LogError($"Unable to pack Empty Portrait {err}");
   }
 
   public PackedScene GetPortrait(SaveEntity entity)
@@ -98,7 +98,7 @@ public partial class PortraitCache : Node
     var err = portrait.Pack(cachedScene);
 
     if (err != Error.Ok)
-      GD.PushError($"Failed to pack portrait {err}");
+      LoggingWindow.Instance.LogError($"Failed to pack portrait {err}");
 
     Cache[id] = portrait;
 

@@ -45,7 +45,7 @@ public partial class EntityList : VBoxContainer
   {
     if (pos < 0 || pos > save.AllEntitiesList.Length)
     {
-      GD.PushWarning($"Ignoring a bad pos index while paging through entities: {pos}");
+      LoggingWindow.Instance.LogWarning($"Ignoring a bad pos index while paging through entities: {pos}");
       return;
     }
 

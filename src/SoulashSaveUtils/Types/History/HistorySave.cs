@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Godot;
+using Soulash2Explorer;
+
 #nullable enable
 
 namespace SoulashSaveUtils.Types;
@@ -62,7 +64,7 @@ public class HistorySave
   {
     if (!historyFile.Exists)
     {
-      GD.PushError("Unable to read history file");
+      LoggingWindow.Instance.LogError("Unable to read history file");
       return null;
     }
 
@@ -79,7 +81,7 @@ public class HistorySave
 
     if (intCount == 0 || intLastID == 0)
     {
-      GD.PushError("Unable to parse entry count or last ID");
+      LoggingWindow.Instance.LogError("Unable to parse entry count or last ID");
       return hs;
     }
 

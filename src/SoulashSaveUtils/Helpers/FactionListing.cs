@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Godot;
+using Soulash2Explorer;
 using SoulashSaveUtils.Types;
 
 namespace SoulashSaveUtils.Helpers;
@@ -21,7 +22,7 @@ public static class FactionListing
   {
     if (!factionFile.Exists)
     {
-      GD.PushError("Faction file doesn't real");
+      LoggingWindow.Instance.LogError("Faction file doesn't real");
       return false;
     }
 

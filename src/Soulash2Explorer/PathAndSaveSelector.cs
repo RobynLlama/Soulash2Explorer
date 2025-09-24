@@ -68,7 +68,7 @@ public partial class PathAndSaveSelector : PanelContainer
 
     if (!Directory.Exists(Path.Combine(Paths.ConfiguredPaths.GameSavesPath, item)))
     {
-      GD.PushError("Path does not exist! Refusing to load");
+      LoggingWindow.Instance.LogError("Path does not exist! Refusing to load");
       return;
     }
 

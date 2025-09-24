@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using Godot;
+using Soulash2Explorer;
 using SoulashSaveUtils.Helpers;
 
 namespace SoulashSaveUtils.Types;
@@ -37,7 +38,7 @@ public class DataCollection
     if (!DataBuildingListing.Create(source, AllDataBuildings))
       return false;
 
-    GD.Print($"""
+    LoggingWindow.Instance.LogMessage($"""
     Total {source} Buildings:
       {AllDataBuildings.Keys.Count}
     """);
@@ -49,7 +50,7 @@ public class DataCollection
   {
     if (Paths.ConfiguredPaths.GameBasePath == string.Empty)
     {
-      GD.PushError("Unable to read GameBasePath");
+      LoggingWindow.Instance.LogError("Unable to read GameBasePath");
       return false;
     }
 
@@ -57,7 +58,7 @@ public class DataCollection
 
     if (!ports.Exists)
     {
-      GD.PushError($"Unable to read portraits_parts.json from: {ports.FullName}");
+      LoggingWindow.Instance.LogError($"Unable to read portraits_parts.json from: {ports.FullName}");
       return false;
     }
 
@@ -69,7 +70,7 @@ public class DataCollection
       {
         var key = entry.Key[21..].Replace(").aseprite", string.Empty);
 
-        GD.Print($"""
+        LoggingWindow.Instance.LogMessage($"""
           Reading Portrait: {key}
           """);
         PortraitFrames[key] = entry.Value;

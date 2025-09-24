@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using Godot;
+using Soulash2Explorer;
 using SoulashSaveUtils.Types;
 
 namespace SoulashSaveUtils.Helpers;
@@ -22,7 +23,7 @@ public static class DataBuildingListing
   {
     if (Paths.ConfiguredPaths.GameBasePath == string.Empty)
     {
-      GD.PushError("Unable to read GameBasePath");
+      LoggingWindow.Instance.LogError("Unable to read GameBasePath");
       return false;
     }
 
@@ -30,20 +31,20 @@ public static class DataBuildingListing
 
     if (!sourceBuildings.Exists)
     {
-      GD.PushError($"Unable to read buildings @ {sourceBuildings.FullName}");
+      LoggingWindow.Instance.LogError($"Unable to read buildings @ {sourceBuildings.FullName}");
       return false;
     }
 
     foreach (var file in sourceBuildings.EnumerateFiles("*.json"))
     {
-      GD.Print($"Loading File: {file.Name}");
+      LoggingWindow.Instance.LogMessage($"Loading File: {file.Name}");
       StreamReader reader = new(file.OpenRead());
 
 
       if (JsonSerializer.Deserialize<DataBuilding>(reader.ReadToEnd()) is DataBuilding building)
         table[building.ID] = building;
       else
-        GD.PushWarning("  File does not contain DataBuilding!");
+        LoggingWindow.Instance.LogWarning("  File does not contain DataBuilding!");
     }
 
     return true;
