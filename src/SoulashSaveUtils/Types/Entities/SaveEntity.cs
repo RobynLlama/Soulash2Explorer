@@ -9,10 +9,10 @@
 
 namespace SoulashSaveUtils.Types;
 
-public class SaveEntity(int ID, SaveEntityName name, bool isHumanoid, Glyph[] glyphs, IEntityComponent[] components)
+public class SaveEntity(int ID, NameComponent name, bool isHumanoid, Glyph[] glyphs, IEntityComponent[] components)
 {
   public int EntityID = ID;
-  public SaveEntityName Name = name;
+  public NameComponent Name = name;
   public bool IsHumanoid = isHumanoid;
   public Glyph[] Glyphs = glyphs;
   public IEntityComponent[] Components = components;

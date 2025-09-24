@@ -17,7 +17,7 @@ namespace SoulashSaveUtils.Helpers;
 public class EntityBuilder
 {
   private int? ID;
-  private SaveEntityName? Name;
+  private NameComponent? Name;
   private bool IsHumanoid = false;
   private List<Glyph> Glyphs = [];
   private List<IEntityComponent> Components = [];
@@ -27,15 +27,9 @@ public class EntityBuilder
     return this;
   }
 
-  public EntityBuilder WithName(SaveEntityName name)
+  public EntityBuilder WithName(NameComponent name)
   {
     Name = name;
-    return this;
-  }
-
-  public EntityBuilder WithName(string nameString)
-  {
-    Name = new(nameString);
     return this;
   }
 

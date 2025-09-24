@@ -27,6 +27,7 @@ public static class ActorListing
     RegisterComponentType("Actor", ActorComponent.BuildComponent);
     RegisterComponentType("Collidable", CollidableComponent.BuildComponent);
     RegisterComponentType("Player", PlayerComponent.BuildComponent);
+    RegisterComponentType("Name", NameComponent.BuildComponent);
   }
   public static bool Create(FileInfo actorsFile, Dictionary<int, SaveEntity> table)
   {
@@ -109,16 +110,18 @@ public static class ActorListing
 
       if (ComponentLibrary.TryGetValue(componentName, out var builder))
       {
-        ent.WithComponent(builder(componentArgs));
+        var nextComp = builder(componentArgs);
+
+        if (nextComp is NameComponent name)
+          ent.WithName(name);
+
+        ent.WithComponent(nextComp);
         continue;
       }
 
       //Todo: get rid of these and use components or something
       switch (componentName)
       {
-        case "Name":
-          ent.WithName(next[5..]);
-          continue;
         case "Humanoid":
           ent.SetHumanoid();
           continue;
