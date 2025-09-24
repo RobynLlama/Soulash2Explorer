@@ -6,9 +6,11 @@
 
 [node name="LoggingWindowBase" type="Window" node_paths=PackedStringArray("LogEntryArea", "LogEntryBox", "CloseButton")]
 oversampling_override = 1.0
+title = "Log Viewer"
 initial_position = 2
 size = Vector2i(640, 480)
 visible = false
+force_native = true
 script = ExtResource("1_ftel5")
 LogEntryProto = ExtResource("2_cx2aa")
 LogEntryArea = NodePath("PanelContainer/LayoutMargins/PageLayout/LogEntryArea")
