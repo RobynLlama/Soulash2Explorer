@@ -19,7 +19,7 @@ public class EntityBuilder
   private int? ID;
   private NameComponent? Name;
   private bool IsHumanoid = false;
-  private List<Glyph> Glyphs = [];
+  private GlyphComponent? Glyph;
   private List<IEntityComponent> Components = [];
   public EntityBuilder WithID(int entID)
   {
@@ -39,9 +39,9 @@ public class EntityBuilder
     return this;
   }
 
-  public EntityBuilder WithGlyph(Glyph glyph)
+  public EntityBuilder WithGlyph(GlyphComponent glyph)
   {
-    Glyphs.Add(glyph);
+    Glyph = glyph;
     return this;
   }
 
@@ -56,7 +56,7 @@ public class EntityBuilder
     ID = null;
     Name = null;
     IsHumanoid = false;
-    Glyphs.Clear();
+    Glyph = null;
     Components.Clear();
     return this;
   }
@@ -65,10 +65,13 @@ public class EntityBuilder
 
   public SaveEntity Build()
   {
+    //Pretty sure these are top level components all entities MUST have
     if (ID is not int goodID)
       throw new ArgumentNullException(nameof(ID));
-    ArgumentNullException.ThrowIfNull(Name);
 
-    return new(goodID, Name, IsHumanoid, [.. Glyphs], [.. Components]);
+    ArgumentNullException.ThrowIfNull(Name);
+    ArgumentNullException.ThrowIfNull(Glyph);
+
+    return new(goodID, Name, IsHumanoid, Glyph.Glyphs, [.. Components]);
   }
 }

@@ -28,6 +28,7 @@ public static class ActorListing
     RegisterComponentType("Collidable", CollidableComponent.BuildComponent);
     RegisterComponentType("Player", PlayerComponent.BuildComponent);
     RegisterComponentType("Name", NameComponent.BuildComponent);
+    RegisterComponentType("Glyph", GlyphComponent.BuildComponent);
   }
   public static bool Create(FileInfo actorsFile, Dictionary<int, SaveEntity> table)
   {
@@ -114,6 +115,8 @@ public static class ActorListing
 
         if (nextComp is NameComponent name)
           ent.WithName(name);
+        else if (nextComp is GlyphComponent glyph)
+          ent.WithGlyph(glyph);
 
         ent.WithComponent(nextComp);
         continue;
@@ -124,32 +127,6 @@ public static class ActorListing
       {
         case "Humanoid":
           ent.SetHumanoid();
-          continue;
-        case "Glyph":
-          var data = componentArgs;
-
-          //clip the count because I don't need it
-          data = data[1..];
-
-          float GetColorFloat(string cdata)
-          {
-            if (!int.TryParse(cdata, out var number))
-              return 1f;
-
-            return number / 255f;
-          }
-
-          foreach (var item in data)
-          {
-            var gInfo = item.Split('*');
-            ent.WithGlyph(
-              new(gInfo[0],
-              new(
-                GetColorFloat(gInfo[1]),
-                GetColorFloat(gInfo[2]),
-                GetColorFloat(gInfo[3])
-              )));
-          }
           continue;
         default:
           continue;
