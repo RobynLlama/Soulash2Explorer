@@ -172,7 +172,7 @@ public partial class HistoryViewer : PanelContainer
     ChangeHistoryPage(0);
   }
 
-  private void UpdatePaginationForLabel(Label whichLabel, int page, int max, ScrollContainer container)
+  private static void UpdatePaginationForLabel(Label whichLabel, int page, int max, ScrollContainer container)
   {
     whichLabel.Text = $"Page {page + 1} / {max + 1}";
     container.GetVScrollBar().Value = 0;
@@ -201,6 +201,9 @@ public partial class HistoryViewer : PanelContainer
         break;
       case 2:
         GetTree().Quit();
+        break;
+      case 3:
+        LoggingWindow.Instance.Visible = true;
         break;
       default:
         GD.PushWarning($"Unhandled ID pressed: {id}");
