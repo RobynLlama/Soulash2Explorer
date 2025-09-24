@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu0b58k1hsqqi"]
+
+[ext_resource type="Theme" uid="uid://b3pdmnovl0ceg" path="res://src/Soulash2Explorer/UIThemeGlobal.tres" id="1_bnf26"]
+[ext_resource type="Script" uid="uid://vmpvvmfveqwy" path="res://src/Soulash2Explorer/LoggingWindow.cs" id="1_ftel5"]
+[ext_resource type="PackedScene" uid="uid://cienaybqhuksx" path="res://src/Soulash2Explorer/Scenes/LogEntryItem.tscn" id="2_cx2aa"]
+
+[node name="LoggingWindowBase" type="Window" node_paths=PackedStringArray("LogEntryArea", "LogEntryBox", "CloseButton")]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(640, 480)
+visible = false
+script = ExtResource("1_ftel5")
+LogEntryProto = ExtResource("2_cx2aa")
+LogEntryArea = NodePath("PanelContainer/LayoutMargins/PageLayout/LogEntryArea")
+LogEntryBox = NodePath("PanelContainer/LayoutMargins/PageLayout/LogEntryArea/EntryMargins/LogContainer")
+CloseButton = NodePath("PanelContainer/LayoutMargins/PageLayout/ButtonClose")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_bnf26")
+
+[node name="LayoutMargins" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="PageLayout" type="VBoxContainer" parent="PanelContainer/LayoutMargins"]
+layout_mode = 2
+
+[node name="LblHeader" type="Label" parent="PanelContainer/LayoutMargins/PageLayout"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Log Monitor Window"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/LayoutMargins/PageLayout"]
+layout_mode = 2
+
+[node name="LogEntryArea" type="ScrollContainer" parent="PanelContainer/LayoutMargins/PageLayout"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EntryMargins" type="MarginContainer" parent="PanelContainer/LayoutMargins/PageLayout/LogEntryArea"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="LogContainer" type="VBoxContainer" parent="PanelContainer/LayoutMargins/PageLayout/LogEntryArea/EntryMargins"]
+layout_mode = 2
+
+[node name="ButtonClose" type="Button" parent="PanelContainer/LayoutMargins/PageLayout"]
+layout_mode = 2
+text = "Close"

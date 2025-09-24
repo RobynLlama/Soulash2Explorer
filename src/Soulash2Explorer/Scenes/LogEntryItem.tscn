@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://cienaybqhuksx"]
+
+[ext_resource type="Script" uid="uid://bg1i7c6ejsmgy" path="res://src/Soulash2Explorer/LogEntryItem.cs" id="1_sivr6"]
+[ext_resource type="FontFile" uid="uid://cpqavyt3ymn3f" path="res://Fonts/ParadroidMono-Light.ttf" id="2_6wbju"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnf26"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ftel5"]
+bg_color = Color(0.2, 0.2, 0.2, 0.5176471)
+
+[node name="LogEntry" type="PanelContainer" node_paths=PackedStringArray("LogLabel")]
+visible = false
+theme_override_styles/panel = SubResource("StyleBoxFlat_bnf26")
+script = ExtResource("1_sivr6")
+LogLabel = NodePath("MarginContainer/RichTextLabel")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ftel5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_6wbju")
+bbcode_enabled = true
+text = "Log Entry"
+fit_content = true

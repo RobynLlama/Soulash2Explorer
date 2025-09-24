@@ -18,6 +18,7 @@ config/icon="uid://oxuotkq1qqja"
 [autoload]
 
 PortraitCaching="*res://src/Soulash2Explorer/Scenes/PortraitCache.tscn"
+LogWindow="*res://src/Soulash2Explorer/Scenes/LoggingWindow.tscn"
 
 [dotnet]
 
