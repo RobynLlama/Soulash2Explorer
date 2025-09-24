@@ -9,8 +9,9 @@
 
 namespace SoulashSaveUtils.Types;
 
-public class SaveEntityName
+public class NameComponent : IEntityComponent
 {
+  public string ComponentID => "Name";
   public string NamingConvention => NameStrings[0] ?? string.Empty;
 
   public string GivenName => NameStrings[1] ?? string.Empty;
@@ -23,11 +24,10 @@ public class SaveEntityName
   public string FullEntityName => $"{ItemPrefix} {ItemName} {ItemPostfix}".Trim();
 
   public string[] NameStrings;
-  public SaveEntityName(string nameString)
+  public NameComponent(string[] args)
   {
-    //Name;core_2_Necrotyrant|Tomb|||the Bone Reaper
-    //Name;310|Bone Knife||Versatile|
-    //Name;|Ukona|||Ugdujab
-    NameStrings = nameString.Split('|');
+    NameStrings = args;
   }
+
+  public static NameComponent BuildComponent(string[] args) => new(args);
 }
