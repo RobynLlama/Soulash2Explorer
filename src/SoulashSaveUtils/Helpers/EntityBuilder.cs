@@ -57,6 +57,7 @@ public class EntityBuilder
     Name = null;
     IsHumanoid = false;
     Glyphs.Clear();
+    Components.Clear();
     return this;
   }
 
