@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
 
-    <AssemblyVersion>0.3.11.3</AssemblyVersion>
+    <AssemblyVersion>0.3.18.2</AssemblyVersion>
     <InformationalVersion>$(AssemblyVersion)</InformationalVersion>
     <Version>$(AssemblyVersion)</Version>
     <FileVersion>$(AssemblyVersion)</FileVersion>
