@@ -24,7 +24,9 @@ public class SaveCollection
 
   public readonly Dictionary<int, SaveEntity> AllEntities = [];
   public SaveEntity[] AllEntitiesList = [];
-  public readonly Dictionary<int, SaveFaction> AllFactions = [];
+  public readonly Dictionary<int, SaveFaction> AllLocations = [];
+  public readonly Dictionary<int, SaveFaction> AllFamilies = [];
+  public readonly Dictionary<int, SaveFaction> AllStates = [];
   public readonly Dictionary<int, SaveBuilding> AllBuildings = [];
   public HistorySave WorldHistory = new();
   public GeneralSave GeneralSaveData = new();
@@ -149,12 +151,12 @@ public class SaveCollection
   {
     var factionFile = new FileInfo(Path.Combine(SaveDir.FullName, FactionsSaveFile));
 
-    if (!FactionListing.Create(factionFile, AllFactions))
+    if (!FactionListing.Create(factionFile, AllLocations, AllFamilies, AllStates))
       return false;
 
     LoggingWindow.Instance.LogMessage($"""
     Total Factions:
-      {AllFactions.Keys.Count}
+      {AllLocations.Keys.Count + AllFamilies.Keys.Count + AllStates.Keys.Count}
     """);
 
     return true;

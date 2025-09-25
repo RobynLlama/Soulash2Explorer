@@ -18,7 +18,7 @@ namespace SoulashSaveUtils.Helpers;
 
 public static class FactionListing
 {
-  public static bool Create(FileInfo factionFile, Dictionary<int, SaveFaction> table)
+  public static bool Create(FileInfo factionFile, Dictionary<int, SaveFaction> locations, Dictionary<int, SaveFaction> families, Dictionary<int, SaveFaction> states)
   {
     if (!factionFile.Exists)
     {
@@ -38,8 +38,14 @@ public static class FactionListing
         var data = items[i].Split('*');
 
         int id = int.Parse(data[0]);
-        SaveFaction temp;
-        table[id] = temp = new(id, data[1]);
+        SaveFaction temp = new(id, data[1]);
+
+        if (groupID == 1)
+          locations[id] = temp;
+        else if (groupID == 3)
+          families[id] = temp;
+        else if (groupID == 5)
+          states[id] = temp;
 
         reading--;
 
