@@ -13,6 +13,9 @@ namespace SoulashSaveUtils.Types;
 //206575*800*78*1*607509*0*-1*1344*24*-1*-1**-1*-1*0*-1
 //472*35*50*2*1144*0*-1*-1*-1*-1*-1**-1*-1*0*-1
 //182996*715*60*9*238851*0*0*881*-1*-1*-1**-1*-1*0*-1
+
+//124*27*19*3*9*31*3*1*-1*-1*-1**-1*-1*0*-1
+//Event 124, on 27/19 marriage, Who (9), Who (31)?, ? (3), ? (1) => blank
 //Guessing: EventID, int Year, int Day, int EventType, EntityID who, 6 event args, always null, 4 event args
 
 public class HistoryEntry(int eventID, int year, int day, EventType what, int who)
@@ -65,6 +68,7 @@ public class HistoryEntry(int eventID, int year, int day, EventType what, int wh
     if (!int.TryParse(entries[4], out var ent))
       return null;
 
+    //Used in Marriage for other entity, maybe?
     if (!int.TryParse(entries[5], out var eventArgs1))
       return null;
 
@@ -110,7 +114,7 @@ public class HistoryEntry(int eventID, int year, int day, EventType what, int wh
     {
       EventType.Born => new HistoryEntryBorn(ID, year, day, eventParsed, ent, whichFaction, whatLocation),
       EventType.Died => new HistoryEntryDied(ID, year, day, eventParsed, ent),
-      EventType.Married => new HistoryEntryMarried(ID, year, day, eventParsed, ent),
+      EventType.Married => new HistoryEntryMarried(ID, year, day, eventParsed, ent, eventArgs1),
       EventType.GotJob => new HistoryEntryJob(ID, year, day, eventParsed, ent, whichFaction, JobID),
       EventType.BecameFamilyLeader => new HistoryEntryFamilyLeader(ID, year, day, eventParsed, ent, whichFaction),
       EventType.JoinedFamily => new HistoryEntryJoinedFamily(ID, year, day, eventParsed, ent, whichFaction),
