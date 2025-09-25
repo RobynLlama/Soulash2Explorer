@@ -9,18 +9,23 @@
 
 namespace SoulashSaveUtils.Types;
 
-public class HistoryEntryMarried(int eventID, int year, int day, EventType what, int who, int target) : HistoryEntry(eventID, year, day, what, who)
+public class HistoryEntryMarried(int eventID, int year, int day, EventType what, int who, int target, int maidenFamily) : HistoryEntry(eventID, year, day, what, who)
 {
 
   public int ToWho = target;
+  public int MaidenFamily = maidenFamily;
 
   public override string DescribeEvent(SaveCollection save)
   {
     string spouseName = $"Unknown ({ToWho})";
+    string spouseMaidenName = $"??? ({MaidenFamily})";
 
     if (save.AllEntities.TryGetValue(ToWho, out var spouse))
       spouseName = spouse.GetFullName;
 
-    return $"was wed to {spouseName}";
+    if (save.AllFamilies.TryGetValue(MaidenFamily, out var maiden))
+      spouseMaidenName = maiden.Name;
+
+    return $"was wed to {spouseName} (former family name: {spouseMaidenName})";
   }
 }
