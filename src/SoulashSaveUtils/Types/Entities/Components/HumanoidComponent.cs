@@ -35,7 +35,7 @@ public class HumanoidComponent(int race, string subrace, string unk1, int gender
     if (args.Length < 5)
       throw new ArgumentException("Too few arguments to parse into humanoid", nameof(args));
 
-    if (!int.TryParse(args[0], out var race) || !int.TryParse(args[4], out var gender))
+    if (!int.TryParse(args[0], out var race) || !int.TryParse(args[3], out var gender))
       throw new ArgumentException("Cannot parse given data into humanoid", nameof(args));
 
     return new HumanoidComponent(race, args[1], args[2], gender, args[4]);
