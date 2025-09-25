@@ -30,6 +30,7 @@ public static class ActorListing
     RegisterComponentType("Name", NameComponent.BuildComponent);
     RegisterComponentType("Glyph", GlyphComponent.BuildComponent);
     RegisterComponentType("Humanoid", HumanoidComponent.BuildComponent);
+    RegisterComponentType("Persona", PersonaComponent.BuildComponent);
   }
   public static bool Create(FileInfo actorsFile, Dictionary<int, SaveEntity> table)
   {
