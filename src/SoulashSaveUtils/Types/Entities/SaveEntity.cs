@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SoulashSaveUtils.Types;
 
@@ -36,6 +37,20 @@ public class SaveEntity
     Glyphs = glyphC.Glyphs;
     Name = nameC;
   }
+
+#nullable enable
+  public IEntityComponent? GetComponent(string componentID) =>
+    Components.TryGetValue(componentID, out IEntityComponent? found) ? found : null;
+
+  public T? GetComponent<T>() where T : class, IEntityComponent
+  {
+    foreach (var comp in Components.Values)
+      if (comp is T found)
+        return found;
+
+    return null;
+  }
+#nullable restore
 
   public string GetFullName
   {
