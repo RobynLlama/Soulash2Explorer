@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://b3pdmnovl0ceg"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://b3pdmnovl0ceg"]
 
 [ext_resource type="FontFile" uid="uid://ck8vb8k0u5j7y" path="res://Fonts/Lato-Regular.ttf" id="1_ntu0i"]
+[ext_resource type="FontFile" uid="uid://cpqavyt3ymn3f" path="res://Fonts/ParadroidMono-Light.ttf" id="2_6n6x1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xalid"]
 
@@ -16,10 +17,15 @@ bg_color = Color(0.491224, 0.410809, 0.341822, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tfsqs"]
 
 [resource]
+Button/fonts/font = ExtResource("1_ntu0i")
 Button/styles/focus = SubResource("StyleBoxEmpty_xalid")
+ItemList/fonts/font = ExtResource("1_ntu0i")
 ItemList/styles/focus = SubResource("StyleBoxEmpty_yegw4")
+Label/fonts/font = ExtResource("1_ntu0i")
+LineEdit/fonts/font = ExtResource("2_6n6x1")
 LineEdit/styles/focus = SubResource("StyleBoxEmpty_ntu0i")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_xalid")
+TabContainer/fonts/font = ExtResource("1_ntu0i")
 TabContainer/styles/tab_focus = SubResource("StyleBoxEmpty_6n6x1")
 TextEdit/font_sizes/font_size = 20
 TextEdit/fonts/font = ExtResource("1_ntu0i")
