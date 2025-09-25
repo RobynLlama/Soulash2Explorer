@@ -14,6 +14,25 @@ public class HistoryEntryDied(int eventID, int year, int day, EventType what, in
   public override string DescribeEvent(SaveCollection save)
   {
     //Todo: load factions into save collection and parse here
+
+    if (save.AllEntities.TryGetValue(Who, out var dyingEntity) && dyingEntity.GetComponent<PersonaComponent>() is PersonaComponent persona)
+    {
+      if (persona.DeathType == DeathType.Slain)
+      {
+        string killerName = $"Unknown ({persona.DeathEntity})";
+
+        if (save.AllEntities.TryGetValue(persona.DeathEntity, out var killer))
+          killerName = killer.GetFullName;
+
+        return $"Was slain by {killerName}";
+      }
+
+      if (persona.DeathType == DeathType.NaturalCauses)
+        return "Died of natural causes";
+
+      return $"Died. Type: ({persona.DeathType})";
+    }
+
     return $"died";
   }
 }
