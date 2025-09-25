@@ -31,5 +31,23 @@ Example:
 
 - Be descriptive of what your commits do.
 - Follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) to help keep track of what you are changing both for yourself and others that wish to read your code
-- **Avoid** committing changes to .gitignore since this will effect everyone's instance if merged. Use `git rm <file>` instead to ask git to stop tracking a file locally
-- **Do not** make style only pull requests, maintainers can handle style issues themselves
+- **Avoid** committing changes to .gitignore since this will effect everyone's instance if merged. Use `git rm --cached <file>` instead to ask git to stop tracking a file locally
+- **Do not** make style-only pull requests, but feel free to alert maintainers to style issues for corrections
+
+## License Policy
+
+Code / Other Text:
+
+All contributors **must** submit all proposed changes to project code under the same main licensing strategy as the project (LGPL). Compatible or alternate licenses are not accepted.
+
+Images / Media:
+
+Media under attribution required or other compatible licenses are allowed. Some examples of acceptable media licenses include:
+
+- The Open Font License
+- The FlatIcon License
+- Creative Commons Share Alike (various)
+
+## AI Usage Policy
+
+Contributors are expected to have substantially created any work they submit to the project. Contributions that are in large part or in whole AI/machine generated must be labelled as such. Contributors repeatedly failing to follow this policy will be blocked from contributing to the project as AI generated content cannot be licensed and therefor cannot meet our license policy (see above).
