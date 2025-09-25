@@ -8,11 +8,15 @@ bg_color = Color(0.408329, 0.408329, 0.408329, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e4xsf"]
 bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s85bw"]
 bg_color = Color(0.270222, 0.270222, 0.270222, 1)
 
-[node name="EntityListItem" type="PanelContainer" node_paths=PackedStringArray("PortraitContainer", "Desc", "ViewButton")]
+[node name="EntityListItem" type="PanelContainer" node_paths=PackedStringArray("PortraitContainer", "Desc", "ViewButton", "GenderIcon")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 31.0
@@ -25,6 +29,7 @@ PortraitContainer = NodePath("VBoxContainer/HBoxContainer/PortraitPanel")
 Desc = NodePath("VBoxContainer/HBoxContainer/EntityName")
 ViewButton = NodePath("VBoxContainer/HBoxContainer/ButtonMargins/ButtonView")
 PortraitLayer = ExtResource("2_e4xsf")
+GenderIcon = NodePath("VBoxContainer/HBoxContainer/GenderContainer/GenderLabel")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -37,6 +42,17 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e4xsf")
+
+[node name="GenderContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="GenderLabel" type="Sprite2D" parent="VBoxContainer/HBoxContainer/GenderContainer"]
+texture_filter = 1
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 15, 15)
 
 [node name="EntityName" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
