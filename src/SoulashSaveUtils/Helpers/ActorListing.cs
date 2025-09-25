@@ -112,25 +112,8 @@ public static class ActorListing
 
       if (ComponentLibrary.TryGetValue(componentName, out var builder))
       {
-        var nextComp = builder(componentArgs);
-
-        if (nextComp is NameComponent name)
-          ent.WithName(name);
-        else if (nextComp is GlyphComponent glyph)
-          ent.WithGlyph(glyph);
-
-        ent.WithComponent(nextComp);
+        ent.WithComponent(builder(componentArgs));
         continue;
-      }
-
-      //Todo: get rid of these and use components or something
-      switch (componentName)
-      {
-        case "Humanoid":
-          ent.SetHumanoid();
-          continue;
-        default:
-          continue;
       }
     }
 

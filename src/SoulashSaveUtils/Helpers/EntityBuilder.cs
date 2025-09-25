@@ -17,51 +17,27 @@ namespace SoulashSaveUtils.Helpers;
 public class EntityBuilder
 {
   private int? ID;
-  private NameComponent? Name;
-  private bool IsHumanoid = false;
-  private GlyphComponent? Glyph;
-  private List<IEntityComponent> Components = [];
+  private Dictionary<string, IEntityComponent> Components = [];
   public EntityBuilder WithID(int entID)
   {
     ID = entID;
     return this;
   }
 
-  public EntityBuilder WithName(NameComponent name)
-  {
-    Name = name;
-    return this;
-  }
-
-  public EntityBuilder SetHumanoid()
-  {
-    IsHumanoid = true;
-    return this;
-  }
-
-  public EntityBuilder WithGlyph(GlyphComponent glyph)
-  {
-    Glyph = glyph;
-    return this;
-  }
-
   public EntityBuilder WithComponent(IEntityComponent component)
   {
-    Components.Add(component);
+    Components.Add(component.ComponentID, component);
     return this;
   }
 
   public EntityBuilder Reset()
   {
     ID = null;
-    Name = null;
-    IsHumanoid = false;
-    Glyph = null;
-    Components.Clear();
+    Components = [];
     return this;
   }
 
-  public bool IsReady => ID is not null && Name is not null;
+  public bool IsReady => ID is not null;
 
   public SaveEntity Build()
   {
@@ -69,9 +45,6 @@ public class EntityBuilder
     if (ID is not int goodID)
       throw new ArgumentNullException(nameof(ID));
 
-    ArgumentNullException.ThrowIfNull(Name);
-    ArgumentNullException.ThrowIfNull(Glyph);
-
-    return new(goodID, Name, IsHumanoid, Glyph.Glyphs, [.. Components]);
+    return new(goodID, Components);
   }
 }
