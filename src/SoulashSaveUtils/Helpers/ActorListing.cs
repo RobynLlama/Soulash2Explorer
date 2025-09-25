@@ -29,6 +29,7 @@ public static class ActorListing
     RegisterComponentType("Player", PlayerComponent.BuildComponent);
     RegisterComponentType("Name", NameComponent.BuildComponent);
     RegisterComponentType("Glyph", GlyphComponent.BuildComponent);
+    RegisterComponentType("Humanoid", HumanoidComponent.BuildComponent);
   }
   public static bool Create(FileInfo actorsFile, Dictionary<int, SaveEntity> table)
   {
