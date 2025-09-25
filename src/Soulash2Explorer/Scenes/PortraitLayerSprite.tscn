@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bxwatu4biqtjp"]
 
 [node name="TextureRect" type="Sprite2D"]
+texture_filter = 1
 centered = false
 offset = Vector2(6, 6)
 region_enabled = true
