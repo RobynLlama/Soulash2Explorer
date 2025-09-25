@@ -30,7 +30,7 @@ public class HumanoidComponent(int race, string subrace, string unk1, int gender
   public string Unknown1 = unk1;
   public HumanoidGender Gender = (HumanoidGender)gender;
   public string Unknown2 = unk2;
-  public static IEntityComponent BuildComponent(string[] args)
+  public static HumanoidComponent BuildComponent(string[] args)
   {
     if (args.Length < 5)
       throw new ArgumentException("Too few arguments to parse into humanoid", nameof(args));
