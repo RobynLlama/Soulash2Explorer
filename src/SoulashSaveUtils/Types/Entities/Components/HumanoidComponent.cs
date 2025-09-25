@@ -7,10 +7,44 @@
   (at your option) any later version.
 */
 
+using System;
+
 namespace SoulashSaveUtils.Types;
 
-public class HumanoidComponent : IEntityComponent
+//Humanoid;10|panther|0|1|0
+//Guessing: RaceID, Subrace ID, ??, Gender?, ??
+
+public class HumanoidComponent(int race, string subrace, string unk1, int gender, string unk2) : IEntityComponent
 {
   public string ComponentID => "Humanoid";
-  public static IEntityComponent BuildComponent(string[] _) => new GenericComponent("Humanoid");
+
+  /// <summary>
+  /// The index into the Humanoid race table for this humanoid
+  /// </summary>
+  public int RaceID = race;
+
+  /// <summary>
+  /// Generally only used for Rasimi for "Panther" "Lion" etc
+  /// </summary>
+  public string SubraceID = subrace;
+  public string Unknown1 = unk1;
+  public HumanoidGender Gender = (HumanoidGender)gender;
+  public string Unknown2 = unk2;
+  public static IEntityComponent BuildComponent(string[] args)
+  {
+    if (args.Length < 5)
+      throw new ArgumentException("Too few arguments to parse into humanoid", nameof(args));
+
+    if (!int.TryParse(args[0], out var race) || !int.TryParse(args[4], out var gender))
+      throw new ArgumentException("Cannot parse given data into humanoid", nameof(args));
+
+    return new HumanoidComponent(race, args[1], args[2], gender, args[4]);
+  }
+}
+
+public enum HumanoidGender
+{
+  NA,
+  Male,
+  Female
 }
