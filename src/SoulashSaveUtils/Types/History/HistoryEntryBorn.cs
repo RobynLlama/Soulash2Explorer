@@ -20,12 +20,12 @@ public class HistoryEntryBorn(int eventID, int year, int day, EventType what, in
     string fam;
     string loc;
 
-    if (save.AllFactions.TryGetValue(FamilyID, out var family))
+    if (save.AllFamilies.TryGetValue(FamilyID, out var family))
       fam = family.Name;
     else
       fam = $"Unknown ({FamilyID})";
 
-    if (save.AllFactions.TryGetValue(LocationID, out var location))
+    if (save.AllLocations.TryGetValue(LocationID, out var location))
       loc = location.Name;
     else
       loc = $"Unknown ({LocationID})";

@@ -29,7 +29,7 @@ public class HistoryEntryJob(int eventID, int year, int day, EventType what, int
     string where;
     string fam;
 
-    if (save.AllFactions.TryGetValue(FamilyID, out var family))
+    if (save.AllFamilies.TryGetValue(FamilyID, out var family))
       fam = family.Name;
     else
       fam = $"Unknown ({FamilyID})";

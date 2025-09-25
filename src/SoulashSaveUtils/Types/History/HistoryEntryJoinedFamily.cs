@@ -20,7 +20,7 @@ public class HistoryEntryJoinedFamily(int eventID, int year, int day, EventType 
   {
     string fam;
 
-    if (save.AllFactions.TryGetValue(FamilyID, out var family))
+    if (save.AllFamilies.TryGetValue(FamilyID, out var family))
       fam = family.Name;
     else
       fam = $"Unknown ({FamilyID})";
