@@ -28,6 +28,7 @@ public class SaveCollection
   public readonly Dictionary<int, SaveFaction> AllFamilies = [];
   public readonly Dictionary<int, SaveFaction> AllStates = [];
   public readonly Dictionary<int, SaveBuilding> AllBuildings = [];
+  public readonly Dictionary<int, Company> AllCompanies = [];
   public HistorySave WorldHistory = new();
   public GeneralSave GeneralSaveData = new();
 
@@ -37,6 +38,7 @@ public class SaveCollection
 
   private const string ActorsSaveFile = "actors.sav";
   private const string GeneralSaveFile = "general.json";
+  private const string CompanySaveFile = "companies.sav";
   private const string HistorySaveFile = "history_events.sav";
   private const string FactionsSaveFile = "factions.sav";
   private const string BuildingsSaveFile = "buildings.sav";
@@ -65,8 +67,23 @@ public class SaveCollection
     if (!LoadFactionSave())
       return false;
 
+    if (!LoadCompanySave())
+      return false;
+
     if (!LoadHistorySave())
       return false;
+
+    return true;
+  }
+
+  public bool LoadCompanySave()
+  {
+    FileInfo companyFile = new(Path.Combine(SaveDir.FullName, CompanySaveFile));
+
+    if (!CompanyListing.Create(companyFile, AllCompanies))
+      return false;
+
+    //Leaving room here for any processing we may need later
 
     return true;
   }
