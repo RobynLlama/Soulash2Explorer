@@ -19,6 +19,7 @@ config/icon="uid://oxuotkq1qqja"
 
 PortraitCaching="*res://src/Soulash2Explorer/Scenes/PortraitCache.tscn"
 LogWindow="*res://src/Soulash2Explorer/Scenes/LoggingWindow.tscn"
+VersionDialog="*res://src/Soulash2Explorer/Scenes/VersionMismatchDialog.tscn"
 
 [dotnet]
 
