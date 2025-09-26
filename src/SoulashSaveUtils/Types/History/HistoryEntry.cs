@@ -95,7 +95,8 @@ public class HistoryEntry(int eventID, int year, int day, EventType what, int wh
     if (!int.TryParse(entries[13], out var eventArgs9))
       return null;
 
-    if (!int.TryParse(entries[14], out var eventArgs10))
+    //Used in JoinedCompany
+    if (!int.TryParse(entries[14], out var whichCompany))
       return null;
 
     if (!int.TryParse(entries[15], out var eventArgs11))
@@ -110,6 +111,7 @@ public class HistoryEntry(int eventID, int year, int day, EventType what, int wh
       EventType.Married => new HistoryEntryMarried(ID, year, day, eventParsed, ent, whatTarget, whichPrevFamily),
       EventType.GotJob => new HistoryEntryJob(ID, year, day, eventParsed, ent, whichFamily, jobID),
       EventType.BecameFamilyLeader => new HistoryEntryFamilyLeader(ID, year, day, eventParsed, ent, whichFamily),
+      EventType.JoinedCompany => new HistoryEntryJoinedCompany(ID, year, day, eventParsed, ent, whichCompany),
       EventType.JoinedFamily => new HistoryEntryJoinedFamily(ID, year, day, eventParsed, ent, whichFamily),
       _ => new HistoryEntry(ID, year, day, eventParsed, ent),
     };
