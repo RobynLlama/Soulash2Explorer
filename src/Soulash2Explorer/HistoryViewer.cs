@@ -13,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using Godot;
+using SoulashSaveUtils;
 using SoulashSaveUtils.Helpers;
 using SoulashSaveUtils.Types;
 
@@ -116,6 +117,9 @@ public partial class HistoryViewer : PanelContainer
 
     if (!save.LoadCompleteSave())
       return;
+
+    if (!VersionChecker.WellKnownSaveVersions.Contains(save.GeneralSaveData.GameVersion))
+      VersionMismatchDialog.Instance.Show(save.GeneralSaveData.GameVersion);
 
     foreach (var item in Listing.GetChildren())
     {
