@@ -113,6 +113,7 @@ public class HistoryEntry(int eventID, int year, int day, EventType what, int wh
       EventType.BecameFamilyLeader => new HistoryEntryFamilyLeader(ID, year, day, eventParsed, ent, whichFamily),
       EventType.JoinedCompany => new HistoryEntryJoinedCompany(ID, year, day, eventParsed, ent, whichCompany),
       EventType.JoinedFamily => new HistoryEntryJoinedFamily(ID, year, day, eventParsed, ent, whichFamily),
+      EventType.NecrotyrantReborn => new HistoryEntryRebornTyrant(ID, year, day, eventParsed, ent),
       _ => new HistoryEntry(ID, year, day, eventParsed, ent),
     };
   }

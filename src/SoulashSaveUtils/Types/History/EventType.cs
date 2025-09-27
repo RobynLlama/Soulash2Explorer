@@ -20,4 +20,6 @@ public enum EventType
 
   JoinedCompany = 12,
   JoinedFamily = 13,
+
+  NecrotyrantReborn = 19,
 }
