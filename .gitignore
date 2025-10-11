@@ -201,6 +201,8 @@ node_modules/
 
 # VS Code files for those working on multiple tools
 .vscode/*
+!.vscode/settings.example.json
+!.vscode/tasks.example.json
 *.code-workspace
 
 # Local History for Visual Studio Code
