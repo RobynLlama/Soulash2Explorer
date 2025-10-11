@@ -31,7 +31,9 @@ public static class ActorListing
     RegisterComponentType("Glyph", GlyphComponent.BuildComponent);
     RegisterComponentType("Humanoid", HumanoidComponent.BuildComponent);
     RegisterComponentType("Persona", PersonaComponent.BuildComponent);
+    RegisterComponentType("Skills", SkillsComponent.BuildComponent);
   }
+
   public static bool Create(FileInfo actorsFile, Dictionary<int, SaveEntity> table)
   {
     if (!actorsFile.Exists)
