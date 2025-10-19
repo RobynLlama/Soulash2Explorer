@@ -21,6 +21,7 @@ public class DataCollection
 {
   public readonly Dictionary<int, DataBuilding> AllDataBuildings = [];
   public Dictionary<string, Portrait> PortraitFrames { get; protected set; } = [];
+  public readonly Dictionary<string, DataSkill> AllDataSkills = [];
 
   public bool LoadAllDataFromSource(string sourceMod)
   {
@@ -28,6 +29,9 @@ public class DataCollection
       return false;
 
     if (!LoadPortraitsFromSource(sourceMod))
+      return false;
+
+    if (!LoadDataSkillData(sourceMod))
       return false;
 
     return true;
@@ -79,5 +83,13 @@ public class DataCollection
     }
 
     return false;
+  }
+
+  public bool LoadDataSkillData(string source)
+  {
+    if (!DataSkillListing.Create(source, AllDataSkills))
+      return false;
+
+    return true;
   }
 }
