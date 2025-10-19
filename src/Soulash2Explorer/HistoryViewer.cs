@@ -85,6 +85,9 @@ public partial class HistoryViewer : PanelContainer
   [Export]
   public LineEdit InfoVersionField;
 
+  [Export]
+  public SkillList SkillList;
+
   protected SaveCollection save;
 
   protected int ActorPageNumber = 0;
@@ -220,6 +223,13 @@ public partial class HistoryViewer : PanelContainer
     if (save.AllEntities.Values.FirstOrDefault(x => x.EntityID == entID) is not SaveEntity entity)
       return;
 
+    UpdateHistoryEvents(entID, entity);
+
+    UpdateSkills(entity);
+  }
+
+  private void UpdateHistoryEvents(int entID, SaveEntity entity)
+  {
     var events = save.WorldHistory.ChronologicalHistory.Where(x => x.Who == entID);
     StringBuilder hs = new();
 
@@ -236,5 +246,12 @@ public partial class HistoryViewer : PanelContainer
     }
 
     HistoryView.Text = hs.ToString();
+  }
+
+  private void UpdateSkills(SaveEntity entity)
+  {
+    var skillComponent = entity.GetComponent<SkillsComponent>();
+
+    SkillList.UpdateSkills(skillComponent?.Skills);
   }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 
 namespace SoulashSaveUtils.Types;
 
@@ -17,8 +18,7 @@ public partial class SkillsComponent(
 {
     public string ComponentID => "Skills";
 
-    public int SkillCount { get; set; }
-    public FrozenDictionary<string, Skill> Skills { get; set; }
+    public FrozenDictionary<string, Skill> Skills { get; set; } = skills;
 
     public static SkillsComponent BuildComponent(string[] args)
     {
