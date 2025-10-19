@@ -2,7 +2,7 @@ using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Linq;
-using Godot;
+using SoulashSaveUtils.Helpers;
 
 namespace SoulashSaveUtils.Types;
 
@@ -52,7 +52,11 @@ public partial class SkillsComponent(
             if (!_skillLevelProgressionLookup.TryGetValue(currentLevel, out var progressToNextLevel))
                 throw new InvalidOperationException($"Unable to parse current xp progress to next for skill {id}, invalid value {skillData[3]}");
 
-            string name = _idNameLookup.GetValueOrDefault(id) ?? "Unknown";
+            string name = "Unknown";
+            if (DataBase.LoadedData.AllDataSkills.TryGetValue(id, out var dataSkill))
+            {
+                name = dataSkill.Name;
+            }
 
             skillsDictionary.Add(id, new Skill(id, name, currentLevel, potential, currentProgress, progressToNextLevel));
         }
@@ -116,37 +120,6 @@ public partial class SkillsComponent(
         {48, 139},
         {49, 145},
         {50, 152}
-    }.ToFrozenDictionary();
-
-
-    // TODO: Load skills from the sources rather than hardcode the names
-    private static readonly FrozenDictionary<string, string> _idNameLookup = new Dictionary<string, string>
-    {
-        { "core_2_adventuring", "Adventuring" },
-        { "core_2_agriculture", "Agriculture" },
-        { "core_2_alchemy", "Alchemy" },
-        { "core_2_armorsmith", "Armorsmithing" },
-        { "core_2_athletics", "Athletics" },
-        { "core_2_axe_fighting", "Axe Fighting" },
-        { "core_2_divine_fists", "Divine Fists" },
-        { "core_2_carpentry", "Carpentry" },
-        { "core_2_construction", "Construction" },
-        { "core_2_cryomancy", "Cryomancy" },
-        { "core_2_floromancy", "Floromancy" },
-        { "core_2_hunting", "Hunting" },
-        { "core_2_imbuing", "Imbuing" },
-        { "core_2_leadership", "Leadership" },
-        { "core_2_leatherworking", "Leatherworking" },
-        { "core_2_mace_fighting", "Mace Fighting" },
-        { "core_2_necromancy", "Necromancy" },
-        { "core_2_pole_fighting", "Pole Fighting" },
-        { "core_2_protection", "Protection" },
-        { "core_2_pyromancy", "Pyromancy" },
-        { "core_2_stormthrowing", "Stormthrowing" },
-        { "core_2_sword_fighting", "Sword Fighting" },
-        { "core_2_tailoring", "Tailoring" },
-        { "core_2_thievery", "Thievery" },
-        { "core_2_weaponsmith", "Weaponsmithing" },
     }.ToFrozenDictionary();
 }
 
