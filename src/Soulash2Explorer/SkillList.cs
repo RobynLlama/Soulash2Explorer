@@ -2,7 +2,7 @@ using Godot;
 using SoulashSaveUtils.Types;
 using System;
 using System.Collections.Frozen;
-using System.Collections.Generic;
+using System.Linq;
 
 public partial class SkillList : GridContainer
 {
@@ -13,7 +13,13 @@ public partial class SkillList : GridContainer
 
     public override void _Ready()
     {
-        _instancePool = new InstancePool<SkillTag>(() => SkillTagPackedScene.Instantiate<SkillTag>());
+        _instancePool = new InstancePool<SkillTag>(
+            // I generate 5 instances here because in advance because most actors I saw didn't have more than 5 skills
+            // Usually only player has a lot of skills, so potentially we could end-up with a lot of instances
+            Enumerable.Range(0, 5)
+                .Select((i) => SkillTagPackedScene.Instantiate<SkillTag>())
+                .ToArray(),
+            () => SkillTagPackedScene.Instantiate<SkillTag>());
     }
 
     public void UpdateSkills(FrozenDictionary<string, Skill> skills)
@@ -26,7 +32,7 @@ public partial class SkillList : GridContainer
             }
         });
 
-        if (skills == null)
+        if (skills == null || skills.Count == 0)
         {
             return;
         }

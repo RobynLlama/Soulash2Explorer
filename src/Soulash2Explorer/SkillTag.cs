@@ -21,14 +21,7 @@ public partial class SkillTag : PanelContainer
         }
 
         var baseColor = new Color(baseColorHex);
-        var progressColor = new Color(
-            baseColor with
-            {
-                R = baseColor.R * 0.7f,
-                G = baseColor.G * 0.7f,
-                B = baseColor.B * 0.7f,
-            }
-        );
+        var progressColor = GetProgressColor(baseColor);
 
         if (Material is not ShaderMaterial material)
         {
@@ -42,6 +35,19 @@ public partial class SkillTag : PanelContainer
         material.SetShaderParameter("background_color", baseColor);
         material.SetShaderParameter("progress_color", progressColor);
         material.SetShaderParameter("progress", progress);
+    }
+
+    // Get progress color by making base color slightly darker
+    private static Color GetProgressColor(Color baseColor)
+    {
+        return new Color(
+            baseColor with
+            {
+                R = baseColor.R * 0.7f,
+                G = baseColor.G * 0.7f,
+                B = baseColor.B * 0.7f,
+            }
+        );
     }
 
     private static readonly FrozenDictionary<string, string> _skillColorLookup

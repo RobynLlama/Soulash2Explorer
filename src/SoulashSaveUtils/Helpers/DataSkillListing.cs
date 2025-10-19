@@ -26,20 +26,20 @@ public static class DataSkillListing
             return false;
         }
 
-        var dataSkillsString = string.Empty;
-        using (var streamReader = new StreamReader(File.OpenRead(sourceDataSkills.FullName)))
-        {
-            dataSkillsString = streamReader.ReadToEnd();
-        }
-
-        if (string.IsNullOrWhiteSpace(dataSkillsString))
-        {
-            LogInvalidJsonFormatError(sourceDataSkills);
-            return false;
-        }
-
         try
         {
+            var dataSkillsString = string.Empty;
+            using (var streamReader = new StreamReader(File.OpenRead(sourceDataSkills.FullName)))
+            {
+                dataSkillsString = streamReader.ReadToEnd();
+            }
+
+            if (string.IsNullOrWhiteSpace(dataSkillsString))
+            {
+                LogInvalidJsonFormatError(sourceDataSkills, "File is empty");
+                return false;
+            }
+
             var dataSkillsList = JsonSerializer.Deserialize<List<DataSkill>>(dataSkillsString);
 
             foreach (var dataSkill in dataSkillsList)
@@ -60,12 +60,12 @@ public static class DataSkillListing
         return true;
     }
 
-    private static void LogInvalidJsonFormatError(FileInfo sourceDataSkills, string reason = null)
+    private static void LogInvalidJsonFormatError(FileInfo sourceDataSkills, string reason)
     {
         reason ??= string.Empty;
 
         LoggingWindow.Instance.LogError(
-            $"Invalid format in {sourceDataSkills.FullName}. {(!string.IsNullOrWhiteSpace(reason) ? $"Reason: {reason}" : string.Empty)}"
+            $"Invalid format in {sourceDataSkills.FullName}. Reason: {reason}"
         );
     }
 }
