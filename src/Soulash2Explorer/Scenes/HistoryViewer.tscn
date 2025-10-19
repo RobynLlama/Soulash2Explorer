@@ -40,7 +40,7 @@ WorldMetaLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/SplitD
 NoticeLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/LogoBox/LblCopyrightNotice")
 ModsList = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/ModsLayout/ModsBox/ModsList")
 InfoVersionField = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/TxtInfoVer")
-SkillList = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/VBoxContainer/SkillList")
+SkillList = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/MarginContainer/ScrollContainer/VBoxContainer/SkillList")
 
 [node name="Margins" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -268,18 +268,29 @@ text = "General:"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 68.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
 
-[node name="Label" type="Label" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/MarginContainer"]
 layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/MarginContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "Skills:"
 
-[node name="SkillList" type="GridContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/VBoxContainer"]
+[node name="SkillList" type="GridContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 columns = 3
 script = ExtResource("6_cof33")
