@@ -6,13 +6,9 @@ using SoulashSaveUtils.Helpers;
 
 namespace SoulashSaveUtils.Types;
 
-/// <summary>
-/// 
-/// I don't parse list of abilities for now as I don't know if that would be helpful
-/// 
-/// Skills;1|core_2_necromancy*50*50*0|core_2_control_undead*core_2_corpse_explosion*core_2_death_ray*core_2_necrotic_touch*core_2_raise_undead|0|
-/// Skills;{skillCount}|{id}*{currentLevel}*{potentialLevel}*{progress}|list of abilities|?|
-/// </summary>
+// I don't parse list of abilities for now as I don't know if that would be helpful
+// Skills;1|core_2_necromancy*50*50*0|core_2_control_undead*core_2_corpse_explosion*core_2_death_ray*core_2_necrotic_touch*core_2_raise_undead|0|
+// Skills;{skillCount}|{id}*{currentLevel}*{potentialLevel}*{progress}|list of abilities|?|
 public partial class SkillsComponent(
     FrozenDictionary<string, Skill> skills) : IEntityComponent
 {
