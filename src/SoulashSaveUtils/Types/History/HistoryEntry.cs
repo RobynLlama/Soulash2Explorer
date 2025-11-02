@@ -8,6 +8,9 @@
 */
 
 #nullable enable
+using System;
+using Godot;
+
 namespace SoulashSaveUtils.Types;
 
 public class HistoryEntry(int eventID, int year, int day, EventType what, int who)
@@ -44,6 +47,16 @@ public class HistoryEntry(int eventID, int year, int day, EventType what, int wh
 
     if (entries.Length != 16)
       return null;
+    //ID,YEAR,DAY,EVENT,ENTITY,TARGET,PrevFam,FAM,LOC,???,DEF,JOB,WAR,RAID,COMP,ATK
+    //4769,62,70,14,0,0,-1,-1,-1,-1,5,NUL,-1,1,0,7
+    //4943,63,34,14,0,0,-1,-1,-1,-1,5,NUL,-1,2,0,24
+
+    //Event 16: Company Action, this one is a raid
+    //on 66, 6: Corrupted Gods (Company: 4) raided Lorapen (Location: 9)
+    //one of the two unknowns is Bloodshed of the Dreadful Hill (War: 3)
+    //5598,66,6,16,0,0,-1,-1,9,-1,-1,NULL,3,3,4,-1
+
+
 
     if (!int.TryParse(entries[0], out var ID))
       return null;
@@ -78,10 +91,13 @@ public class HistoryEntry(int eventID, int year, int day, EventType what, int wh
     if (!int.TryParse(entries[8], out var whatLocation))
       return null;
 
+    //I had the parser search around 1200 years of history and this arg was
+    //never set to anything other than -1. Its probably unused right now
     if (!int.TryParse(entries[9], out var eventArgs5))
       return null;
 
-    if (!int.TryParse(entries[10], out var eventArgs6))
+    //Used in Unknown 14 as defender Company ID
+    if (!int.TryParse(entries[10], out var companyDefending))
       return null;
 
     //Used in Got a Job, probably Job ID
@@ -89,17 +105,20 @@ public class HistoryEntry(int eventID, int year, int day, EventType what, int wh
     if (!int.TryParse(entries[11], out var jobID))
       jobID = 0;
 
-    if (!int.TryParse(entries[12], out var eventArgs8))
+    //Used in Company Action / Raid as War ID
+    if (!int.TryParse(entries[12], out var whichWar))
       return null;
 
-    if (!int.TryParse(entries[13], out var eventArgs9))
+    //Used in Unknown 14 as a raid ID
+    if (!int.TryParse(entries[13], out var whichRaid))
       return null;
 
     //Used in JoinedCompany
     if (!int.TryParse(entries[14], out var whichCompany))
       return null;
 
-    if (!int.TryParse(entries[15], out var eventArgs11))
+    //Used in Unknown 14 as attacking company
+    if (!int.TryParse(entries[15], out var companyAttacking))
       return null;
 
     var eventParsed = (EventType)eType;
