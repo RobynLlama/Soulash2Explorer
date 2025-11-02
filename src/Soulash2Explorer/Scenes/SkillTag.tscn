@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://cnlcxpanqxg75"]
+
+[ext_resource type="Shader" uid="uid://cfl173x43ppbc" path="res://src/Soulash2Explorer/Scenes/SkillTag.gdshader" id="1_7680m"]
+[ext_resource type="Script" uid="uid://hv1cq3utk7qq" path="res://src/Soulash2Explorer/SkillTag.cs" id="2_aqapl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_aqapl"]
+resource_local_to_scene = true
+shader = ExtResource("1_7680m")
+shader_parameter/background_color = Color(0.7764706, 0.6039216, 0.41960785, 1)
+shader_parameter/progress_color = Color(0.43582267, 0.31805733, 0.18901882, 1)
+shader_parameter/progress = 30.815
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aqapl"]
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 35
+
+[node name="SkillTag" type="PanelContainer" node_paths=PackedStringArray("SkillNameLabel")]
+material = SubResource("ShaderMaterial_aqapl")
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_aqapl")
+script = ExtResource("2_aqapl")
+SkillNameLabel = NodePath("MarginContainer/SkillNameLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="SkillNameLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "Adventuring 33/50"

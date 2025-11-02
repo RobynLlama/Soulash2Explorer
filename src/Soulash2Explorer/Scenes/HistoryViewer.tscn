@@ -1,15 +1,17 @@
-[gd_scene load_steps=9 format=3 uid="uid://b56yh3idnaw18"]
+[gd_scene load_steps=11 format=3 uid="uid://b56yh3idnaw18"]
 
 [ext_resource type="Theme" uid="uid://b3pdmnovl0ceg" path="res://src/Soulash2Explorer/UIThemeGlobal.tres" id="1_d3yqh"]
 [ext_resource type="Script" uid="uid://d2lghe26m6ojt" path="res://src/Soulash2Explorer/HistoryViewer.cs" id="1_feepi"]
 [ext_resource type="Script" uid="uid://pnh7ynt7mc8l" path="res://src/Soulash2Explorer/EntityList.cs" id="2_xom4v"]
 [ext_resource type="PackedScene" uid="uid://db3innjiphdce" path="res://src/Soulash2Explorer/Scenes/EntityListItem.tscn" id="3_hes2d"]
 [ext_resource type="Texture2D" uid="uid://oxuotkq1qqja" path="res://icon.png" id="4_gkb4t"]
+[ext_resource type="PackedScene" uid="uid://cnlcxpanqxg75" path="res://src/Soulash2Explorer/Scenes/SkillTag.tscn" id="6_0eh5g"]
 [ext_resource type="Script" uid="uid://dudbweuhst8o" path="res://src/Soulash2Explorer/TextEditScrollWidth.cs" id="6_8lh2e"]
+[ext_resource type="Script" uid="uid://bot260k1ntvpw" path="res://src/Soulash2Explorer/SkillList.cs" id="6_cof33"]
 [ext_resource type="Script" uid="uid://d7gkd1nc08iq" path="res://src/Soulash2Explorer/HistoryList.cs" id="7_cof33"]
 [ext_resource type="PackedScene" uid="uid://dwgos5mbx5rbj" path="res://src/Soulash2Explorer/Scenes/HistoricalEvent.tscn" id="8_kvwa0"]
 
-[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "Listing", "EntityScroller", "ActorBackButton", "ActorForwardButton", "PageInfoLabel", "HistoryView", "WorldHistoryLabel", "HistoryListing", "HistoryScroller", "HistoryBackButton", "HistoryForwardButton", "HistoryPageLabel", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "ModsList", "InfoVersionField")]
+[node name="HistoryViewer" type="PanelContainer" node_paths=PackedStringArray("Menu", "Listing", "EntityScroller", "ActorBackButton", "ActorForwardButton", "PageInfoLabel", "HistoryView", "WorldHistoryLabel", "HistoryListing", "HistoryScroller", "HistoryBackButton", "HistoryForwardButton", "HistoryPageLabel", "WorldNameLabel", "WorldMetaLabel", "NoticeLabel", "ModsList", "InfoVersionField", "SkillList")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,12 +23,12 @@ theme = ExtResource("1_d3yqh")
 script = ExtResource("1_feepi")
 Menu = NodePath("Margins/Layout/MenuBar/Menu")
 SaveScenePath = "uid://2xt0imermq0v"
-Listing = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/EntityList/EntList")
-EntityScroller = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/EntityList")
-ActorBackButton = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination/ButtonBack")
-ActorForwardButton = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination/ButtonForward")
-PageInfoLabel = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination/PagePanel/LblPageInfo")
-HistoryView = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityHistory")
+Listing = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer/EntityList/EntList")
+EntityScroller = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer/EntityList")
+ActorBackButton = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer/MarginContainer/Pagination/ButtonBack")
+ActorForwardButton = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer/MarginContainer/Pagination/ButtonForward")
+PageInfoLabel = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer/MarginContainer/Pagination/PagePanel/LblPageInfo")
+HistoryView = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/EntityHistory")
 WorldHistoryLabel = NodePath("Margins/Layout/TabContainer/World History/HistoryBox/LblWorldStats")
 HistoryListing = NodePath("Margins/Layout/TabContainer/World History/HistoryBox/HistoryScroller/HistoryList")
 HistoryScroller = NodePath("Margins/Layout/TabContainer/World History/HistoryBox/HistoryScroller")
@@ -38,6 +40,7 @@ WorldMetaLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/SplitD
 NoticeLabel = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/LogoBox/LblCopyrightNotice")
 ModsList = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/SplitDisplay/ModsLayout/ModsBox/ModsList")
 InfoVersionField = NodePath("Margins/Layout/TabContainer/Save Info/SaveMeta/TxtInfoVer")
+SkillList = NodePath("Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/MarginContainer/ScrollContainer/VBoxContainer/SkillList")
 
 [node name="Margins" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -72,9 +75,10 @@ item_3/id = 2
 [node name="TabContainer" type="TabContainer" parent="Margins/Layout"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 0
+current_tab = 1
 
 [node name="Save Info" type="MarginContainer" parent="Margins/Layout/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_bottom = 8
@@ -160,7 +164,6 @@ alignment = 1
 editable = false
 
 [node name="Actor Viewer" type="MarginContainer" parent="Margins/Layout/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_bottom = 8
@@ -184,24 +187,24 @@ text = "Actor List"
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_font_sizes/font_size = 24
-text = "Actor History"
+text = "Actor Info"
 
 [node name="EntityContainer" type="HBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer"]
+[node name="EntityListContainer" type="VBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="EntityList" type="ScrollContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer"]
+[node name="EntityList" type="ScrollContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 follow_focus = true
 horizontal_scroll_mode = 0
 
-[node name="EntList" type="VBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/EntityList"]
+[node name="EntList" type="VBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer/EntityList"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -209,7 +212,7 @@ script = ExtResource("2_xom4v")
 ListItemProto = ExtResource("3_hes2d")
 metadata/_custom_type_script = "uid://pnh7ynt7mc8l"
 
-[node name="MarginContainer" type="MarginContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 8
@@ -217,22 +220,22 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 4
 
-[node name="Pagination" type="HBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer"]
+[node name="Pagination" type="HBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
 
-[node name="ButtonBack" type="Button" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination"]
+[node name="ButtonBack" type="Button" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer/MarginContainer/Pagination"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 24
 text = " < "
 
-[node name="PagePanel" type="Panel" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination"]
+[node name="PagePanel" type="Panel" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer/MarginContainer/Pagination"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="LblPageInfo" type="Label" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination/PagePanel"]
+[node name="LblPageInfo" type="Label" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer/MarginContainer/Pagination/PagePanel"]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -246,15 +249,62 @@ size_flags_horizontal = 6
 text = "Page 0"
 horizontal_alignment = 1
 
-[node name="ButtonForward" type="Button" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/VBoxContainer/MarginContainer/Pagination"]
+[node name="ButtonForward" type="Button" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityListContainer/MarginContainer/Pagination"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 24
 text = " > "
 
-[node name="EntityHistory" type="TextEdit" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer"]
+[node name="EntityInfoContainer" type="VBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="GeneralInfoLabel" type="Label" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "General:"
+
+[node name="GeneralInfoPanel" type="Panel" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/MarginContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Skills:"
+
+[node name="SkillList" type="GridContainer" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer/GeneralInfoPanel/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+columns = 3
+script = ExtResource("6_cof33")
+SkillTagPackedScene = ExtResource("6_0eh5g")
+
+[node name="HistoryLabel" type="Label" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "History:"
+
+[node name="EntityHistory" type="TextEdit" parent="Margins/Layout/TabContainer/Actor Viewer/EntBox/EntityContainer/EntityInfoContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 placeholder_text = "Click an entity to view its complete history here"
 editable = false
 emoji_menu_enabled = false
